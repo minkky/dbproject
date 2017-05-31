@@ -1,34 +1,95 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.sql.*" %>
 
+<html>
+<head>
+<title></title>
 <%
-Connection myConn = null;
-Statement stmt = null;
-String mySQL = null;
-String dburl = "jdbc:oracle:thin:@localhost:8090:orcl";
-String user = "1004";
-String passwd = "1004";
-String dbdriver = "oracle.jdbc.driver.OracleDriver";
-Class.forName(dbdriver);
-myConn = DriverManager.getConnection(dburl, user, passwd);
-stmt = myConn.createStatement();
+	String dbdriver = "oracle.jdbc.driver.OracleDriver";
+	Class.forName(dbdriver);
+	Connection myConn = null;
 
-String userID = request.getParameter("userID");
-String userPassword = request.getParameter("userPassword");
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String user = "db01";
+	String passwd = "ss2";
 
-mySQL = "select s_id from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
+	Statement stmt = null;
+	String mySQL = null;
+	ResultSet rs = null;
 
-ResultSet rs = stmt.executeQuery(mySQL);
+	String userID = request.getParameter("userID");
+	String userPassword = request.getParameter("userPassword");
 
-if (rs == null) {
-	out.println("location='login.jsp';");
-}
-else {
-	out.println("script type=\"text/javascript\">");
-	out.println("alert('User or password incorrect');");
-	out.println("location='main.jsp';");
-	out.println("</script>");
-}
-stmt.close();
-myConn.close();
 %>
+</head>
+<body>
+<%
+	try{
+		myConn = DriverManager.getConnection(dburl, user, passwd);
+		stmt = myConn.createStatement();
+		mySQL = "select s_id from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
+		rs = stmt.executeQuery(mySQL);
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.sql.*" %>
+
+<html>
+<head>
+<title></title>
+<%
+	String dbdriver = "oracle.jdbc.driver.OracleDriver";
+	Class.forName(dbdriver);
+	Connection myConn = null;
+
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String user = "db01";
+	String passwd = "ss2";
+
+	Statement stmt = null;
+	String mySQL = null;
+	ResultSet rs = null;
+
+	String userID = request.getParameter("userID");
+	String userPassword = request.getParameter("userPassword");
+%>
+</head>
+<body>
+<%
+	try{
+		myConn = DriverManager.getConnection(dburl, user, passwd);
+		stmt = myConn.createStatement();
+		mySQL = "select s_id from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
+		rs = stmt.executeQuery(mySQL);
+
+	}catch(SQLException e){
+	    out.println(e);
+	    e.printStackTrace();
+	}finally{
+		if (rs == null) {
+			response.sendRedirect("login.jsp");
+		}
+		else {
+			session.setAttribute("user", userID);
+			response.sendRedirect("main.jsp");
+		}
+		stmt.close();
+		myConn.close();
+	}
+%>
+</body>
+</html>
+	}
+
+	if (rs == null) {
+		out.println("location='login.jsp';");
+	}
+	else {
+		out.println("script type=\"text/javascript\">");
+		out.println("alert('User or password incorrect');");
+		out.println("location='main.jsp';");
+		out.println("</script>");
+	}
+	stmt.close();
+	myConn.close();
+%>
+</body>
+</html>
