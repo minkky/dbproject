@@ -7,7 +7,7 @@
 <table width="75%" align="center" border>
 <form method="post" action="login_verify.jsp">
 	<tr><td><div align="center">아이디</div></td>
-	<td><div align="center"><input type="text" name="userID">/</div></td>
+	<td><div align="center"><input type="text" name="userID"></div></td>
 	</tr>
 
 	<tr><td><div align="center">패스워드</div></td>
