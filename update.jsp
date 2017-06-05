@@ -6,7 +6,8 @@
 
 <html>
 <head>
-<title>수강신청 사용자 정보 수정</title>
+	<title>수강신청 사용자 정보 수정</title>
+	<link rel='stylesheet' href='./dbDesign.css' />
 </head>
 <body>
 <%@ include file="top.jsp" %>
@@ -15,7 +16,8 @@
 	Class.forName(dbdriver);
 	Connection myConn = null;
 
-	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";
+	//minji String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
 	String user = "db01";
 	String passwd = "ss2";
 
@@ -48,20 +50,20 @@
 				userPwd = rs.getString("s_pwd");
 	%>
 				<form action="update_verify.jsp?id=<%=session_id%>" method="post">
-				<table align="center">
+				<table align="center" id="update_table">
 				<tr>
-				  <td>ID</td>
-				  <td><input type="text" name="id" size="15" value=<%=session_id%> disabled></td>
-				  <td>비밀번호</td>
-				  <td><input type="password" name="password" size="10" value=<%=userPwd%>></td>
+				  <td id="update_td">ID</td>
+				  <td><input id="update_id_in" type="text" name="id" size="15" value=<%=session_id%> disabled></td>
+				  <td id="update_td">비밀번호</td>
+				  <td><input id="update_pw_in" type="password" name="password" size="10" value=<%=userPwd%>></td>
 				</tr>
 				<tr>
-				  <td>주소</td>
-				  <td colspan="3"><input type="text" name="address" size="50" value="<%=userAddr%>"></td>
+				  <td id="update_td">주소</td>
+				  <td colspan="3"><input id="update_add_in" type="text" name="address" size="50" value="<%=userAddr%>"></td>
 				</tr>
 				<tr>
 				  <td colspan="4" align="center">
-				  <input type="submit" value="수정 완료">
+				  <input id="update_btn" type="submit" value="수정 완료">
 				  </td>
 				</tr>
 				</table>
