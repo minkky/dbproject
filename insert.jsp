@@ -1,14 +1,23 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.sql.*"  %>
-<html><head><title>수강신청 입력</title></head>
+<html>
+	<head>
+		<title>수강신청 입력</title>
+		<link rel='stylesheet' href='./dbDesign.css' />
+	</head>
 <body>
 <%@ include file="top.jsp" %>
 <%   if (session_id==null) response.sendRedirect("login.jsp");  %>
 
-<table width="75%" align="center" border>
+<table width="75%" align="center" id="insert_table">
 <br>
-<tr><th>과목번호</th><th>분반</th><th>과목명</th><th>학점</th>
-      <th>수강신청</th></tr>
+<tr>
+	<th>과목번호</th>
+	<th>분반</th>
+	<th>과목명</th>
+	<th>학점</th>
+    <th>수강신청</th>
+</tr>
 <%
 	Connection myConn = null;      Statement stmt = null;	
 	ResultSet myResultSet = null;   String mySQL = "";

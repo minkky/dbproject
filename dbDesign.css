@@ -1,0 +1,104 @@
+@font-face {
+  font-family : 'SsangmunDong';
+  src : url(./FONT/Typo_SsangmunDong.eot);
+  src : url(./FONT/Typo_SsangmunDong.ttf) format('truetype'),
+        url(./FONT/Typo_SsangmunDong.woff) format('woff');
+}
+
+@font-face {
+  font-family : 'ppi';
+  src : url(./FONT/THE_Ppi.eot);
+  src : url(./FONT/THE_Ppi.ttf) format('truetype'),
+        url(./FONT/THE_Ppi.woff) format('woff');
+}
+
+@font-face {
+  font-family : 'tvn_b';
+  src : url(./FONT/tvN_b.eot);
+  src : url(./FONT/tvN_b.ttf) format('truetype'),
+        url(./FONT/tvN_b.woff) format('woff');
+}
+
+@font-face {
+  font-family : 'tvn_m';
+  src : url(./FONT/tvN_m.eot);
+  src : url(./FONT/tvN_m.ttf) format('truetype'),
+        url(./FONT/tvN_m.woff) format('woff');
+}
+body{
+	font-family: ppi;
+	font-size: 1.1em;
+}
+
+#top_a, #top_a:visited, #main_a, #main_a:visited{
+	text-decoration: none;
+	color: white;
+}
+
+#main_a{
+	background: lightgrey;
+	padding: 1.5% 5%;
+	border-radius: 20px;
+}
+
+#loginout{
+	color: black;
+	font-size: 3em;
+}
+
+#insert_table{
+	font-size: 1.2em;
+	margin-top: 2%;
+	border: 1px solid lightgrey;
+}
+
+#top_nav{
+	font-size: 1.2em;
+	height: 30pt;
+	margin-top: 2%;
+	background: #ed705a;
+	padding: 1%;
+	border-radius: 30px;
+}
+
+#main_table{
+	font-size: 2em;
+}
+
+#login_title{
+	background-color: FF6347;
+	text-align: center;
+	font-size: 2em;
+	margin-top : 13%;
+	margin-bottom: 3%;
+	width: 30%;
+	margin-left: 33%;
+	padding : 2%;
+	border-radius: 20px;
+	color: white;
+	font-weight: bolder;
+}
+
+#login_table{
+	font-size: 1.5em;
+}
+
+#login_tag{
+	font-weight: bolder;
+	width: 40%;
+}
+
+#login_id_in, #login_pw_in{
+	height : 25pt;
+	width : 150pt;
+	font-size: 20pt;
+}
+
+#login_div_btn{
+	margin-top: 5%;
+}
+
+#login_cbtn, #login_sbtn{
+	font-size: 13pt;
+	width : 100pt; height: 30pt;
+}
