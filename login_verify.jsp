@@ -12,6 +12,7 @@
 	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String user = "db01";
 	String passwd = "ss2";
+	//String id = null, pw = null;
 
 	Statement stmt = null;
 	String mySQL = null;
@@ -27,28 +28,30 @@
 	try{
 		myConn = DriverManager.getConnection(dburl, user, passwd);
 		stmt = myConn.createStatement();
-		mySQL = "select s_id from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
+		mySQL = "select s_id, s_pwd from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
 		rs = stmt.executeQuery(mySQL);
+
 	}catch(SQLException e){
 	    out.println(e);
 	    e.printStackTrace();
 	}finally{
-		if (rs == null) {
+
+		if (rs.next()) {
+%>
+			<script> 
+				alert("로그인 성공!"); 
+				location.href="main.jsp";  
+			</script>
+<%
+		}
+		else {
 %>
 			<script> 
 				alert("아이디/패스워드를 확인하세요."); 
 				location.href="login.jsp";  
 			</script>  
 <%
-		}
-		else {
-%>
-			<script> 
-				alert("로그인 성공!"); 
-				location.href="main.jsp";  
-			</script>  
-<%
-		}
+		}	
 		stmt.close();
 		myConn.close();
 	}
