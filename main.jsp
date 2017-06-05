@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
 	<title>데이터베이스를 활용한 수강신청 시스템 입니다.</title>
