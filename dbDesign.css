@@ -46,6 +46,11 @@ body{
 	font-size: 3em;
 }
 
+#p_insert_table {
+	font-size: 1.2em;
+	margin-top: 2%;
+}
+
 #insert_table{
 	font-size: 1.2em;
 	margin-top: 2%;
@@ -92,6 +97,33 @@ body{
 	height : 25pt;
 	width : 150pt;
 	font-size: 20pt;
+}
+
+#in {
+	height : 25pt;
+	width : 150pt;
+	font-size: 20pt;
+	color: black;
+	text-decoration: none;
+	font-family: ppi;
+	text-align: center;
+	font-weight: bolder;
+}
+
+#in_t {
+	height : 25pt;
+	width : 20pt;
+	font-size: 20pt;
+	color: white;
+	text-decoration: none;
+
+}
+#in_b, #in_b:visited {
+	width: 80pt;
+	font-size: 17pt;
+	color: black;
+	text-decoration: none;
+	
 }
 
 #update_id_in, #update_pw_in{

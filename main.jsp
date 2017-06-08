@@ -7,9 +7,12 @@
 <body>
 	<%@ include file="/top.jsp" %>
 	<table width="75%" align="center" height="68%" id="main_table">
-		<% if (session_id!= null) { %>
+		<% 
+		String prof = "";
+		if(stu_mode == false ) prof = "교수";
+		if (session_id!= null) { %>
 		<tr>
-			<td align="center"><b><%=session_id%> 님</b> 방문을환영합니다.</td> 
+			<td align="center"><b><%=session_id%><%=prof%>님</b> 방문을환영합니다.</td> 
 		</tr>
 		<% } else { %>
 		<tr>
