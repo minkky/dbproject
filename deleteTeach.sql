@@ -1,20 +1,20 @@
 CREATE OR Replace PROCEDURE DeleteTeach (pProfessorId IN VARCHAR2, 
 		sCourseId IN VARCHAR2, 
 		nCourseIdNo IN NUMBER,
-		result	OUT VARCHAR2)
+		result OUT VARCHAR2)
 IS
 BEGIN
 	result := '';
 
 	DBMS_OUTPUT.put_line('#');
-	DBMS_OUTPUT.put_line(pProfessorId || '´ÔÀÌ °ú¸ñ¹øÈ£ ' || sCourseId || ', ºĞ¹İ ' || TO_CHAR(nCourseIdNo) || 'ÀÇ °­ÀÇ »èÁ¦¸¦ ¿äÃ»ÇÏ¿´½À´Ï´Ù.');
+	DBMS_OUTPUT.put_line(pProfessorId || 'ë‹˜ì´ ê³¼ëª©ë²ˆí˜¸ ' || sCourseId || ', ë¶„ë°˜ ' || TO_CHAR(nCourseIdNo) || 'ì˜ ê°•ì˜ ì‚­ì œë¥¼ ìš”ì²­í•˜ì˜€ìŠµë‹ˆë‹¤.');
 
 	DELETE
 	FROM teach
 	WHERE p_id = pProfessorId and c_id = sCourseId and c_id_no = nCourseIdNo;
 
 	COMMIT;
-	result := '°­ÀÇ »èÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.';
+	result := 'ê°•ì˜ ì‚­ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.';
 
 EXCEPTION
 	WHEN OTHERS THEN
