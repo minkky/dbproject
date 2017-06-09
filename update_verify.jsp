@@ -13,27 +13,48 @@
 	Class.forName(dbdriver);
 	Connection myConn = null;
 	
-	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";
+	//minji 
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
 	String user = "db01";
 	String passwd = "ss2";
 	
 	PreparedStatement pstmt = null;
-	
+	PreparedStatement prof_pstmt = null;
+
 	String formId = request.getParameter("id");
 	String formPass = request.getParameter("password");
 	String formAddr = request.getParameter("address");
+	String st = request.getParameter("mode");
 	
+	String str = "";
+
 	try{          
 		myConn = DriverManager.getConnection(dburl, user, passwd);
 		
-		String sql = "UPDATE student SET s_pwd=?, s_addr=? WHERE s_id=?";        
-		pstmt = myConn.prepareStatement(sql);
-		
-		pstmt.setString(1, formPass);
-		pstmt.setString(2, formAddr);
-		pstmt.setString(3, formId);
-		
-		pstmt.executeUpdate();
+		if(st.equals("false")){
+			String prof_sql = "UPDATE professor SET p_pwd=?, p_name=? WHERE p_id=?";
+			prof_pstmt = myConn.prepareStatement(prof_sql);
+
+			prof_pstmt.setString(1, formPass);
+			prof_pstmt.setString(2, formAddr);
+			prof_pstmt.setString(3, formId);
+
+			prof_pstmt.executeUpdate();
+
+		}
+		else{
+
+			String sql = "UPDATE student SET s_pwd=?, s_addr=? WHERE s_id=?";      
+			pstmt = myConn.prepareStatement(sql);
+			
+			pstmt.setString(1, formPass);
+			pstmt.setString(2, formAddr);
+			pstmt.setString(3, formId);
+
+			pstmt.executeUpdate();
+
+		}
 		%><script> 
 			alert("성공적으로 수정했습니다."); 
 			location.href="main.jsp";  
@@ -52,6 +73,7 @@
 		out.println("</script>");
 		out.flush();
 	}finally{
+		if(prof_pstmt != null) try{prof_pstmt.close();}catch(SQLException sqle){} 
 		if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
 		if(myConn != null) try{myConn.close();}catch(SQLException sqle){}   
 	}		

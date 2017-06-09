@@ -14,45 +14,59 @@
 	String passwd = "ss2";
 	//String id = null, pw = null;
 
-	Statement stmt = null;
-	String mySQL = null;
-	ResultSet rs = null;
+	Statement stmt = null;	Statement p_stmt = null;
+	String mySQL = null;	String p_mySQL = null;
+	ResultSet rs = null; 	ResultSet p_rs = null;
 
 	String userID = request.getParameter("userID");
 	String userPassword = request.getParameter("userPassword");
-	session.setAttribute("user", userID);
 %>
 </head>
 <body>
 <%
 	try{
 		myConn = DriverManager.getConnection(dburl, user, passwd);
-		stmt = myConn.createStatement();
+		stmt = myConn.createStatement(); p_stmt = myConn.createStatement();
+
 		mySQL = "select s_id, s_pwd from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
 		rs = stmt.executeQuery(mySQL);
+
+		p_mySQL = "select p_id, p_pwd from professor where p_id='" + userID + "' and p_pwd='"+ userPassword +"'";
+		p_rs = p_stmt.executeQuery(p_mySQL);
 
 	}catch(SQLException e){
 	    out.println(e);
 	    e.printStackTrace();
 	}finally{
-
-		if (rs.next()) {
+		if(rs != null && p_rs != null){
+			if (rs.next()) {
+			session.setAttribute("user", userID);
 %>
-			<script> 
-				alert("로그인 성공!"); 
-				location.href="main.jsp";  
-			</script>
+				<script> 
+					alert("로그인 성공!"); 
+					location.href="main.jsp";  
+				</script>
 <%
-		}
-		else {
+			}
+			else if (p_rs.next()) {
+			session.setAttribute("prof", userID);
 %>
-			<script> 
-				alert("아이디/패스워드를 확인하세요."); 
-				location.href="login.jsp";  
-			</script>  
+				<script> 
+					alert("로그인 성공!"); 
+					location.href="main.jsp";  
+				</script>
 <%
+			}
+			else {
+%>
+				<script> 
+					alert("아이디/패스워드를 확인하세요."); 
+					location.href="login.jsp";  
+				</script>  
+<%
+			}
 		}	
-		stmt.close();
+		stmt.close(); p_stmt.close();
 		myConn.close();
 	}
 %>
