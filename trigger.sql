@@ -4,10 +4,10 @@ UPDATE ON student
 FOR EACH ROW
 
 DECLARE
-    underflow_length    EXCEPTION;
-    invalid_value       EXCEPTION;
-    nLength             NUMBER;
-    nBlank              NUMBER;
+    underflow_length EXCEPTION;
+    invalid_value EXCEPTION;
+    nLength NUMBER;
+    nBlank NUMBER;
 
 BEGIN
     /* 학년 제약조건 : DDL에서 해결 */
