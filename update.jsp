@@ -17,8 +17,8 @@
 	Connection myConn = null;
 
 	//minji 
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	//String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
 	String user = "db01";
 	String passwd = "ss2";
 
@@ -84,7 +84,7 @@
 			if(stu_mode == false) up_name = "이름"; 
 %>
 			  <td id="update_td"><%=up_name%></td>
-			  <td colspan="3"><input id="update_add_in" type="text" name="address" size="50" value=<%=userAddr%>></td>
+			  <td colspan="3"><input id="update_add_in" type="text" name="address" size="50" value="<%=userAddr%>"></td>
 			</tr>
 			<tr>
 			  <td colspan="4" align="center">
