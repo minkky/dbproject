@@ -4,7 +4,7 @@
 	<title>데이터베이스를 활용한 수강신청 시스템 입니다.</title>
 </head>
 <body>
-	<%@ include file="/top.jsp" %>
+	<%@ include file="top.jsp" %>
 	<table width="75%" align="center" height="100%">
 		<% if (session_id!= null) { %>
 		<tr>
