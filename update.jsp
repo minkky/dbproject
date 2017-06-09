@@ -51,7 +51,7 @@
 		    out.println(e);
 		    e.printStackTrace();
 		}finally{
-			if(prs != null){
+			if(rs != null && prs != null){
 				if (rs.next()) {
 					userAddr = rs.getString("s_addr");
 					userPwd = rs.getString("s_pwd");
