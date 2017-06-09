@@ -7,14 +7,14 @@ BEGIN
 	result := '';
 
 	DBMS_OUTPUT.put_line('#');
-	DBMS_OUTPUT.put_line(sStudentId || '´ÔÀÌ °ú¸ñ¹øÈ£ ' || sCourseId || ', ºĞ¹İ ' || TO_CHAR(nCourseIdNo) || 'ÀÇ ¼ö°­ Ãë¼Ò¸¦ ¿äÃ»ÇÏ¿´½À´Ï´Ù.');
+	DBMS_OUTPUT.put_line(sStudentId || 'ë‹˜ì´ ê³¼ëª©ë²ˆí˜¸ ' || sCourseId || ', ë¶„ë°˜ ' || TO_CHAR(nCourseIdNo) || 'ì˜ ìˆ˜ê°• ì·¨ì†Œë¥¼ ìš”ì²­í•˜ì˜€ìŠµë‹ˆë‹¤.');
 
 	DELETE
 	FROM enroll
 	WHERE s_id = sStudentId and c_id = sCourseId and c_id_no = nCourseIdNo;
 
 	COMMIT;
-	result := '¼ö°­Ãë¼Ò°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.';
+	result := 'ìˆ˜ê°•ì·¨ì†Œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.';
 
 EXCEPTION
 	WHEN OTHERS THEN
