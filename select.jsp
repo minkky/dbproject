@@ -48,12 +48,9 @@
 	}
 
 	Calendar system_date = Calendar.getInstance();
-	int form_year = system_date.get(Calendar.YEAR);
-	int form_semester;
-	if (system_date.get(Calendar.MONTH) <= 7)
-		form_semester = 1;
-	else
-		form_semester = 2;
+	int current_year = system_date.get(Calendar.YEAR);
+	int current_month = system_date.get(Calendar.MONTH);
+	int next_semester = 0;
 	String course_id;
 	int course_id_no;
 	String course_name = "";
@@ -86,6 +83,14 @@
 	try {
 		Class.forName("oracle.jdbc.driver.OracleDriver");            
 		conn = DriverManager.getConnection(dburl, user, passwd);
+
+		sql = "{call getNextSemester(?)}";
+		cstmt = conn.prepareCall(sql);
+		cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
+		cstmt.execute();
+		next_semester = cstmt.getInt(1);
+		if (current_month >= 11) 
+			current_year++;
 		
 		if (stu_mode) 
 			sql = "SELECT c_id, c_id_no FROM enroll WHERE s_id = ? and e_year = ? and e_semester = ?";
@@ -93,8 +98,8 @@
 			sql = "SELECT c_id, c_id_no FROM teach WHERE p_id = ? and t_year = ? and t_semester = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, session_id);
-		pstmt.setInt(2, form_year);
-		pstmt.setInt(3, form_semester);
+		pstmt.setInt(2, current_year);
+		pstmt.setInt(3, next_semester);
 		rs = pstmt.executeQuery();
 		while (rs.next()) {
 			course_id = rs.getString("c_id");
@@ -153,24 +158,24 @@
 			if (stu_mode) {
 %>
 		<tr>
-			<td><%=course_id %></td>
-			<td><%=course_id_no %></td>
-			<td><%=course_name %></td>
-			<td><%=professor_name %></td>
-			<td><%=str_course_day %> <%=course_start_time %> - <%=course_end_time %></td>
-			<td><%=course_place %></td>
-			<td><%=course_unit %></td>
+			<td align="center"><%=course_id %></td>
+			<td align="center"><%=course_id_no %></td>
+			<td align="center"><%=course_name %></td>
+			<td align="center"><%=professor_name %></td>
+			<td align="center"><%=str_course_day %> <%=course_start_time %> - <%=course_end_time %></td>
+			<td align="center"><%=course_place %></td>
+			<td align="center"><%=course_unit %></td>
 <%
 			}
 			else {
 %>
 		<tr>
-			<td><%=course_id %></td>
-			<td><%=course_id_no %></td>
-			<td><%=course_name %></td>
-			<td><%=str_course_day %> <%=course_start_time %> - <%=course_end_time %></td>
-			<td><%=course_place %></td>
-			<td><%=current_student_num %> / <%=max_student_num %></td>
+			<td align="center"><%=course_id %></td>
+			<td align="center"><%=course_id_no %></td>
+			<td align="center"><%=course_name %></td>
+			<td align="center"><%=str_course_day %> <%=course_start_time %> - <%=course_end_time %></td>
+			<td align="center"><%=course_place %></td>
+			<td align="center"><%=current_student_num %> / <%=max_student_num %></td>
 <%
 			}
 		}
@@ -179,6 +184,7 @@
 		conn.close();
 	} 
 	catch(SQLException ex) { 
+		System.err.println("SQLException: " + ex.getMessage());
 	}
 	if (stu_mode) {
 %>
