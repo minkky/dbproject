@@ -58,8 +58,8 @@
 <%
 	}else{
 %>
-	<div align="center" id="insert_div" style="width:75%; overflow-y: auto; margin-top:2%; overflow-x: auto; margin-left: 12.5%; height: 755r%;">
-		<table align="center" width="100%" height="100%" id="insert_table">
+	<div align="center" id="insert_div" style="width:75%; overflow-y: auto; margin-top:2%; overflow-x: auto; margin-left: 12.5%; height: 80%;">
+		<table align="center" width="100%" id="insert_table">
 		<br>
 		<tr>
 			<th>과목번호</th>
@@ -100,6 +100,10 @@
 						String p_name = myResultSet.getString("p_name");
 						int t_st_h = myResultSet.getInt("t_startTime_hh"); int t_st_m = myResultSet.getInt("t_startTime_mm");
 						int t_et_h = myResultSet.getInt("t_endTime_hh"); int t_et_m = myResultSet.getInt("t_endTime_mm");
+						String t_st_mm = null, t_et_mm = null;
+						t_st_mm = t_st_m + ""; t_et_mm = t_et_m + ""; 
+						if(t_st_m == 0) t_st_mm = "00";
+						if(t_et_m == 0) t_et_mm = "00";
 %>
 					<tr>
 					  <td align="center"><%= c_id %></td> 
@@ -107,7 +111,7 @@
 					  <td align="center"><%= t_year %>-<%=t_semester%></td> 
 					  <td align="center"><%= c_name %></td>
 					  <td align="center"><%= c_unit %></td>
-					  <td align="center"><%= t_st_h %>:<%= t_st_m %>-<%= t_et_h %>:<%= t_et_m %></td>
+					  <td align="center"><%= t_st_h %>:<%= t_st_mm %>-<%= t_et_h %>:<%= t_et_mm %></td>
 					  <td align="center"><%= p_name %></td>
 					  <td align="center"><a href="insert_verify.jsp?mode=<%=stu_mode%>&c_name='<%=c_name%>'&c_id=<%= c_id %>&c_id_no=<%= c_id_no %>" id="in_b">신청</a></td>
 					</tr>
