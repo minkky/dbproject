@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE InsertEnroll(sStudentId IN VARCHAR2, 
+﻿CREATE OR REPLACE PROCEDURE InsertEnroll(sStudentId IN VARCHAR2, 
   sCourseId IN VARCHAR2, 
   nCourseIdNo IN NUMBER,
   result OUT VARCHAR2)
@@ -72,7 +72,7 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분
 
   /* 에러 처리 4 : 신청한 과목들 시간 중복 여부 */
   SELECT COUNT(*) 
-  INTO   nCnt
+  INTO nCnt
   FROM
   (
 	  SELECT t_startTime_hh, t_startTime_mm, t_endTime_hh, t_endTime_mm
@@ -81,8 +81,8 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분
 	        c_id = sCourseId and c_id_no = nCourseIdNo
 	  INTERSECT
 	  SELECT t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm
-	  FROM	teach t, enroll e
-	  WHERE	e.s_id=sStudentId and e.e_year=nYear and e.e_semester = nSemester and
+	  FROM teach t, enroll e
+	  WHERE e.s_id=sStudentId and e.e_year=nYear and e.e_semester = nSemester and
 		t.t_year=nYear and t.t_semester = nSemester and
 		e.c_id=t.c_id and e.c_id_no=t.c_id_no
   );
@@ -101,13 +101,13 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분
   result := '수강신청 등록이 완료되었습니다.';
 
 EXCEPTION
-  WHEN too_many_sumCourseUnit	THEN    
+  WHEN too_many_sumCourseUnit THEN    
 	result := '최대학점을 초과하였습니다';	
-  WHEN too_many_courses		THEN
+  WHEN too_many_courses THEN
 	result := '이미 등록된 과목을 신청하였습니다';
-  WHEN too_many_students	THEN
+  WHEN too_many_students THEN
 	result := '수강신청 인원이 초과되어 등록이 불가능합니다';
-  WHEN duplicate_time		THEN
+  WHEN duplicate_time THEN
 	result := '이미 등록된 과목 중 중복되는 시간이 존재합니다';
   when no_data_found THEN
   	result := '이번 학기 과목이 아닙니다.';
