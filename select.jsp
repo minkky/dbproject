@@ -16,9 +16,7 @@
 	if (session_id == null) 
 		response.sendRedirect("login.jsp");
 %>
-	<br/>
-	<br/>
-	<br/>
+	<br/><br/><br/>
 	<table width="75%" align="center" id="select_table">
 <% 
 	if (stu_mode) {

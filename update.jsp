@@ -3,7 +3,11 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.io.*" %>
 <%@ page import="java.sql.*" %>
-
+<style type="text/css">
+	* {
+		font-family: ppi;
+	}
+</style>
 <html>
 <head>
 	<title>수강신청 사용자 정보 수정</title>
@@ -17,8 +21,8 @@
 	Connection myConn = null;
 
 	//minji 
-	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
 	String user = "db01";
 	String passwd = "ss2";
 

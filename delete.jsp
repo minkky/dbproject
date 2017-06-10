@@ -10,7 +10,7 @@
 <%   if (session_id==null) response.sendRedirect("login.jsp");
 	Connection myConn = null;      Statement stmt = null;	
 	ResultSet myResultSet = null;   String mySQL = "";
-	String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
+	String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String user="db01";     String passwd="ss2";
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";    
 
