@@ -13,7 +13,7 @@
 
 	try {
 		Class.forName(dbdriver);
-	        myConn =  DriverManager.getConnection (dburl, user, passwd);
+	    myConn =  DriverManager.getConnection (dburl, user, passwd);
 	} catch(SQLException ex) {
     	 System.err.println("SQLException: " + ex.getMessage());
 	}

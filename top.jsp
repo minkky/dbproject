@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<style type="text/css">
+	#home, #home:visited{
+		text-decoration: none;
+		font-size: 1.2em;
+		margin-top: 2%;
+		margin-left: 2%;
+	}
+</style>
 <%
 	boolean stu_mode = true;
 	String session_id= (String)session.getAttribute("user");
@@ -8,7 +16,7 @@
 	}
 	String log;
 %>
-<a href="main.jsp" style="display: inline;">home tag</a>
+<a id="home" href="main.jsp" align="center"><img height="120px" src="./IMG/snow2.gif"/></a>
 <table width="75%" align="center" id="top_nav">
 	<tr>
 	<td align="center"><b><a href="update.jsp" id="top_a">사용자 정보 수정</b></td>

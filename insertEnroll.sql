@@ -1,24 +1,23 @@
 CREATE OR REPLACE PROCEDURE InsertEnroll(sStudentId IN VARCHAR2, 
-                sCourseId IN VARCHAR2, 
-				nCourseIdNo IN NUMBER,
-				result	OUT VARCHAR2)
+  sCourseId IN VARCHAR2, 
+  nCourseIdNo IN NUMBER,
+  result OUT VARCHAR2)
 IS
-  too_many_sumCourseUnit	EXCEPTION;
-  too_many_courses		EXCEPTION;
-  too_many_students		EXCEPTION;
-  duplicate_time		EXCEPTION;
-  nYear				NUMBER;
-  nSemester			NUMBER;
-  nSumCourseUnit	NUMBER;
-  nCourseUnit		NUMBER;
-  nCnt				NUMBER;
-  nTeachMax			NUMBER;
+  too_many_sumCourseUnit EXCEPTION;
+  too_many_courses EXCEPTION;
+  too_many_students EXCEPTION;
+  duplicate_time EXCEPTION;
+  nYear NUMBER;
+  nSemester NUMBER;
+  nSumCourseUnit NUMBER;
+  nCourseUnit NUMBER;
+  nCnt NUMBER;
+  nTeachMax NUMBER;
 BEGIN
   result := '';
 
 DBMS_OUTPUT.put_line('#');
-DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || 
-', 분반 ' || TO_CHAR(nCourseIdNo) || '의 수강 등록을 요청하였습니다.');
+DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분반 ' || TO_CHAR(nCourseIdNo) || '의 수강 등록을 요청하였습니다.');
 
 
   /* 년도, 학기 알아내기 */
@@ -72,17 +71,17 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId ||
      RAISE too_many_students;
   END IF;
 
-  /* 에러 처리 4 : 신청한 과목들 시간 중복 여부  */  
+  /* 에러 처리 4 : 신청한 과목들 시간 중복 여부 */
   SELECT COUNT(*) 
   INTO   nCnt
   FROM
   (
-	  SELECT t_time
+	  SELECT t_startTime_hh, t_startTime_mm, t_endTime_hh, t_endTime_mm
 	  FROM teach
 	  WHERE t_year=nYear and t_semester = nSemester and
 	        c_id = sCourseId and c_id_no = nCourseIdNo
 	  INTERSECT
-	  SELECT t.t_time
+	  SELECT t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm
 	  FROM	teach t, enroll e
 	  WHERE	e.s_id=sStudentId and e.e_year=nYear and e.e_semester = nSemester and
 		t.t_year=nYear and t.t_semester = nSemester and
@@ -93,7 +92,7 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId ||
   THEN
      RAISE duplicate_time;
   END IF;
-
+ 
 
   /* 수강 신청 등록 */
   INSERT INTO enroll(S_ID,C_ID,C_ID_NO,E_YEAR,E_SEMESTER)
