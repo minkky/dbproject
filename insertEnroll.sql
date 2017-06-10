@@ -46,7 +46,7 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분
   INTO	 nCnt
   FROM   enroll
   WHERE  s_id = sStudentId and c_id = sCourseId;
-	
+
   IF (nCnt > 0) 
   THEN
      RAISE too_many_courses;
@@ -109,8 +109,6 @@ EXCEPTION
 	result := '수강신청 인원이 초과되어 등록이 불가능합니다';
   WHEN duplicate_time		THEN
 	result := '이미 등록된 과목 중 중복되는 시간이 존재합니다';
-  when no_data_found THEN
-  	result := '이번 학기 과목이 아닙니다.';
   WHEN OTHERS THEN
         ROLLBACK;
         result := SQLCODE;
