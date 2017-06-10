@@ -53,7 +53,7 @@
 		}  
 		finally {
 		    if (cstmt != null) 
-	            try { myConn.commit(); cstmt.clo();  myConn.close(); }
+	            try { myConn.commit(); cstmt.close();  myConn.close(); }
 	 	      catch(SQLException ex) { }
 	     }
  }

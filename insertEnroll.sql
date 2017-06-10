@@ -20,6 +20,7 @@ DBMS_OUTPUT.put_line('#');
 DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || 
 ', 분반 ' || TO_CHAR(nCourseIdNo) || '의 수강 등록을 요청하였습니다.');
 
+
   /* 년도, 학기 알아내기 */
   nYear := Date2EnrollYear(SYSDATE);
   nSemester := Date2EnrollSemester(SYSDATE);
