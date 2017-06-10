@@ -1,19 +1,19 @@
 CREATE OR REPLACE PROCEDURE SelectTimeTable(sStudentId IN VARCHAR2,
-      nYear      IN NUMBER,
-      nSemester  IN NUMBER)               
+		nYear      IN NUMBER,
+		nSemester  IN NUMBER)					
 IS
-   sId         COURSE.C_ID%TYPE;
-   sName      COURSE.C_NAME%TYPE;
-   nIdNo      COURSE.C_ID_NO%TYPE;
-   nUnit      COURSE.C_UNIT%TYPE;
+	sId			COURSE.C_ID%TYPE;
+	sName		COURSE.C_NAME%TYPE;
+	nIdNo		COURSE.C_ID_NO%TYPE;
+	nUnit		COURSE.C_UNIT%TYPE;
 
-   nSTime_h   TEACH.T_startTime_hh%TYPE;
-   nSTime_m   TEACH.T_startTime_mm%TYPE;
-   nETime_h   TEACH.T_endTime_hh%TYPE;
-   nETime_m   TEACH.T_endTime_mm%TYPE;
+	nSTime_h	TEACH.T_startTime_hh%TYPE;
+	nSTime_m	TEACH.T_startTime_mm%TYPE;
+	nETime_h	TEACH.T_endTime_hh%TYPE;
+	nETime_m	TEACH.T_endTime_mm%TYPE;
 
-   sWhere      TEACH.T_WHERE%TYPE;
-   nTotUnit   NUMBER := 0; 
+	sWhere		TEACH.T_WHERE%TYPE;
+	nTotUnit	NUMBER := 0;
  
 CURSOR cur (sStudentId VARCHAR2, nYear NUMBER, nSemester NUMBER) IS
    SELECT e.c_id, c.c_name, e.c_id_no, c.c_unit, t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm, t.t_where
@@ -34,9 +34,9 @@ LOOP
    FETCH cur INTO sId, sName, nIdNo, nUnit, nSTime_h, nSTime_m, nETime_h, nETime_m, sWhere;
    EXIT  WHEN cur%NOTFOUND;
 
-   DBMS_OUTPUT.put_line('과목번호:' || sID || 
-           ', 과목명:'|| sName || ', 분반:' || TO_CHAR(nIdNo) ||
-           ', 학점:' || TO_CHAR(nUnit) ||    ', 장소:' || sWhere);
+	DBMS_OUTPUT.put_line('과목번호:' || sID || 
+			  ', 과목명:'|| sName || ', 분반:' || TO_CHAR(nIdNo) ||
+			  ', 학점:' || TO_CHAR(nUnit) ||	 ', 장소:' || sWhere);
 
    nTotUnit := nTotUnit + nUnit;
 END LOOP;
