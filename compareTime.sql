@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE FUNCTION compareTime (
+CREATE OR REPLACE FUNCTION compareTime (
 	first_course_id VARCHAR,
 	first_course_id_no NUMBER,
 	second_course_id VARCHAR,
