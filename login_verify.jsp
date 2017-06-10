@@ -28,10 +28,10 @@
 		myConn = DriverManager.getConnection(dburl, user, passwd);
 		stmt = myConn.createStatement(); p_stmt = myConn.createStatement();
 
-		mySQL = "select s_id, s_pwd from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
+		mySQL = "select s_id, s_pwd, s_name from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
 		rs = stmt.executeQuery(mySQL);
 
-		p_mySQL = "select p_id, p_pwd from professor where p_id='" + userID + "' and p_pwd='"+ userPassword +"'";
+		p_mySQL = "select p_id, p_pwd, p_name from professor where p_id='" + userID + "' and p_pwd='"+ userPassword +"'";
 		p_rs = p_stmt.executeQuery(p_mySQL);
 
 	}catch(SQLException e){
@@ -40,6 +40,8 @@
 	}finally{
 		if(rs != null && p_rs != null){
 			if (rs.next()) {
+			String u_name = rs.getString("s_name");
+			session.setAttribute("user_name", u_name);
 			session.setAttribute("user", userID);
 %>
 				<script> 
@@ -49,6 +51,8 @@
 <%
 			}
 			else if (p_rs.next()) {
+			String u_name = p_rs.getString("p_name");
+			session.setAttribute("user_name", u_name);
 			session.setAttribute("prof", userID);
 %>
 				<script> 

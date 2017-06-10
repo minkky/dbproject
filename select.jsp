@@ -3,44 +3,34 @@
 <%@ page import="java.io.*" %>
 <%@ page import="java.sql.*" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ include file="top.jsp" %>
+<%
+	if (session_id == null) 
+		response.sendRedirect("login.jsp");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>수강신청 조회</title>
-	<link rel='stylesheet' href='./dbDesign.css' />
+	<link rel='stylesheet' href='dbDesign.css' />
 </head>
 <body>
-	<%@ include file="/top.jsp" %>
-<%
-	if (session_id == null) 
-		response.sendRedirect("login.jsp");
-%>
-	<br/><br/><br/>
 	<table width="75%" align="center" id="select_table">
 <% 
 	if (stu_mode) {
 %>
 		<tr>
-			<th>과목</th>
-			<th>분반</th>
-			<th>과목명</th>
-			<th>교수</th>
-			<th>시간</th>
-			<th>장소</th>
-			<th>학점</th>
+			<th>과목</th><th>분반</th><th>과목명</th><th>교수</th>
+			<th>시간</th><th>장소</th><th>학점</th>
 		</tr>
 <%
 	}
 	else {
 %>
 		<tr>
-			<th>과목</th>
-			<th>분반</th>
-			<th>과목명</th>
-			<th>시간</th>
-			<th>장소</th>
-			<th>수강 인원</th>
+			<th>과목</th><th>분반</th><th>과목명</th><th>시간</th>
+			<th>장소</th><th>수강 인원</th>
 		</tr>
 <%		
 	}
@@ -74,7 +64,7 @@
 	String sql;
 	String sub_sql;
 	
-	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";        
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String user = "db01";                                       
 	String passwd = "ss2";
 	

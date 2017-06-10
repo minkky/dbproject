@@ -1,3 +1,4 @@
+<%	request.setCharacterEncoding("UTF-8");%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <style type="text/css">
 	#home, #home:visited{
@@ -9,6 +10,7 @@
 </style>
 <%
 	boolean stu_mode = true;
+	String user_name = (String)session.getAttribute("user_name");
 	String session_id= (String)session.getAttribute("user");
 	if(session_id == null) {
 		session_id = (String)session.getAttribute("prof");

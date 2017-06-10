@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
+	<style type="text/css">
+		
+	</style>
 	<title>데이터베이스를 활용한 수강신청 시스템 입니다.</title>
 	<link rel='stylesheet' href='./dbDesign.css' />
 </head>
@@ -12,7 +15,7 @@
 		if(stu_mode == false ) prof = "교수";
 		if (session_id!= null) { %>
 		<tr>
-			<td align="center"><b><%=session_id%><%=prof%>님</b> 방문을환영합니다.</td> 
+			<td align="center"><b><%=user_name%><%=prof%>님</b> 방문을환영합니다.</td> 
 		</tr>
 		<% } else { %>
 		<tr>
