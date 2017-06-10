@@ -68,7 +68,6 @@ body{
 
 #insert_table{
 	font-size: 1.2em;
-	margin-top: 2%;
 	border: 1px solid lightgrey;
 }
 
@@ -184,6 +183,12 @@ body{
 	height: 25%;
 	margin-top: 10%;
 	font-size: 1.2em;
+}
+
+#delete_table{
+	margin-top: 2%;
+	font-size: 1.2em;
+	border: 1px solid lightgrey;
 }
 
 #select_table{

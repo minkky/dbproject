@@ -24,7 +24,7 @@
 	
 	if(stu_mode == false){		
 %> <!-- professor login 시 -->
-		<table width="75%" align="center" id="insert_table">
+		<table width="75%" align="center" id="delete_table">
 		<br>
 		<tr>
 			<th>과목번호</th>
@@ -79,7 +79,7 @@
 			myConn.close();
 	}else{
 %>
-		<table width="75%" align="center" id="insert_table">
+		<table width="75%" align="center" id="delete_table">
 		<br>
 		<tr>
 			<th>과목번호</th>

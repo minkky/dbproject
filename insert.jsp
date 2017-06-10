@@ -53,11 +53,13 @@
 			"></td>
 			</form>
 			</tr>
+			</table>
+
 <%
 	}else{
 %>
-
-		<table width="75%" align="center" id="insert_table">
+	<div align="center" id="insert_div" style="width:75%; overflow-y: auto; margin-top:2%; overflow-x: auto; margin-left: 12.5%; height: 755r%;">
+		<table align="center" width="100%" height="100%" id="insert_table">
 		<br>
 		<tr>
 			<th>과목번호</th>
@@ -65,6 +67,8 @@
 			<th>학기</th>
 			<th>과목명</th>
 			<th>학점</th>
+			<th>수업시간</th>
+			<th>담당교수</th>
 		    <th>수강신청</th>
 		</tr>
 <%
@@ -81,7 +85,7 @@
 		    } catch(SQLException ex) {
 			     System.err.println("SQLException: " + ex.getMessage());
 		    }
-			mySQL = "select c.c_id, c.c_id_no, c.c_name, c.c_unit, t.t_year, t.t_semester from course c, teach t where c.c_id = t.c_id AND c.c_id_no=t.c_id_no AND c.c_id not in (select c_id from enroll where s_id='" + session_id + "') order by c.c_id";
+			mySQL = "select c.c_id, c.c_id_no, c.c_name, c.c_unit, t.t_year, t.t_semester, t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm, p.p_name from course c, teach t, professor p where p.p_id=t.p_id AND c.c_id = t.c_id AND c.c_id_no=t.c_id_no AND c.c_id not in (select c_id from enroll where s_id='" + session_id + "') order by c.c_id, c.c_id_no";
 			try{
 				myResultSet = stmt.executeQuery(mySQL);
 
@@ -93,6 +97,9 @@
 						int c_unit = myResultSet.getInt("c_unit");			
 						int t_year = myResultSet.getInt("t_year");
 						int t_semester = myResultSet.getInt("t_semester");
+						String p_name = myResultSet.getString("p_name");
+						int t_st_h = myResultSet.getInt("t_startTime_hh"); int t_st_m = myResultSet.getInt("t_startTime_mm");
+						int t_et_h = myResultSet.getInt("t_endTime_hh"); int t_et_m = myResultSet.getInt("t_endTime_mm");
 %>
 					<tr>
 					  <td align="center"><%= c_id %></td> 
@@ -100,17 +107,22 @@
 					  <td align="center"><%= t_year %>-<%=t_semester%></td> 
 					  <td align="center"><%= c_name %></td>
 					  <td align="center"><%= c_unit %></td>
+					  <td align="center"><%= t_st_h %>:<%= t_st_m %>-<%= t_et_h %>:<%= t_et_m %></td>
+					  <td align="center"><%= p_name %></td>
 					  <td align="center"><a href="insert_verify.jsp?mode=<%=stu_mode%>&c_name='<%=c_name%>'&c_id=<%= c_id %>&c_id_no=<%= c_id_no %>" id="in_b">신청</a></td>
 					</tr>
 <%
 					}
+				%></table>
+				</div><%	
 				}
 			}catch(SQLException e){
 			    out.println(e);
 			    e.printStackTrace();
 			}
+
 			stmt.close();  
 			myConn.close();
 			}
 %>
-</table></body></html>
+</body></html>
