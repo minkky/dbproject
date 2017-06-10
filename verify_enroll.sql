@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE SelectTimeTable(sStudentId IN VARCHAR2,
+﻿CREATE OR REPLACE PROCEDURE SelectTimeTable(sStudentId IN VARCHAR2,
 		nYear      IN NUMBER,
 		nSemester  IN NUMBER)					
 IS
@@ -11,8 +11,7 @@ IS
 	nSTime_m	TEACH.T_startTime_mm%TYPE;
 	nETime_h	TEACH.T_endTime_hh%TYPE;
 	nETime_m	TEACH.T_endTime_mm%TYPE;
-	
-	nTime		TEACH.T_TIME%TYPE;
+
 	sWhere		TEACH.T_WHERE%TYPE;
 	nTotUnit	NUMBER := 0; 
  
@@ -35,7 +34,7 @@ LOOP
 	FETCH cur INTO sId, sName, nIdNo, nUnit, nSTime_h, nSTime_m, nETime_h, nETime_m, sWhere;
 	EXIT  WHEN cur%NOTFOUND;
 
-	DBMS_OUTPUT.put_line('교시:' || TO_CHAR(nTime) || ', 과목번호:' || sID || 
+	DBMS_OUTPUT.put_line('과목번호:' || sID || 
 			  ', 과목명:'|| sName || ', 분반:' || TO_CHAR(nIdNo) ||
 			  ', 학점:' || TO_CHAR(nUnit) ||	 ', 장소:' || sWhere);
 
