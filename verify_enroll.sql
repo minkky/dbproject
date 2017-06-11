@@ -34,7 +34,7 @@ LOOP
 	FETCH cur INTO sId, sName, nIdNo, nUnit, nSTime_h, nSTime_m, nETime_h, nETime_m, sWhere;
 	EXIT  WHEN cur%NOTFOUND;
 
-	DBMS_OUTPUT.put_line('교시:' || TO_CHAR(nTime) || ', 과목번호:' || sID || 
+	DBMS_OUTPUT.put_line('교시:' || TO_CHAR(nSTime_h) || TO_CHAR(nSTime_m) || TO_CHAR(nETime_h) || TO_CHAR(nETime_m) || ', 과목번호:' || sID || 
 			  ', 과목명:'|| sName || ', 분반:' || TO_CHAR(nIdNo) ||
 			  ', 학점:' || TO_CHAR(nUnit) ||	 ', 장소:' || sWhere);
 
