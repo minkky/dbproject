@@ -113,10 +113,20 @@
 			if (sub_rs.next()) {
 				professor_id = sub_rs.getString("p_id");
 				int_course_day = "" + sub_rs.getInt("t_day");
+
+				String str_st_m = null, str_et_m = null;
+				int st_m = sub_rs.getInt("t_startTime_MM");
+				str_st_m = st_m + "";
+				if(st_m == 0)  str_st_m = "00";
+
+				int et_m = sub_rs.getInt("t_endTime_MM");
+				str_et_m = et_m + "";
+				if(et_m == 0)  str_et_m = "00";
+				
 				course_start_time = "" + sub_rs.getInt("t_startTime_HH");
-				course_start_time = course_start_time + " : " + sub_rs.getInt("t_startTime_MM");
+				course_start_time = course_start_time + " : " + str_st_m;
 				course_end_time = "" + sub_rs.getInt("t_endTime_HH");
-				course_end_time = course_end_time + " : " + sub_rs.getInt("t_endTime_MM");
+				course_end_time = course_end_time + " : " + str_et_m;
 				course_place = sub_rs.getString("t_where");
 				max_student_num = sub_rs.getInt("t_max");
 			}
