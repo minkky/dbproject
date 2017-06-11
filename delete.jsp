@@ -85,12 +85,15 @@
 			<th>과목번호</th>
 			<th>분반</th>
 			<th>과목명</th>
+			<th>수업 요일</th>
+			<th>수업 시간</th>
+		    <th>강의 장소</th>
 			<th>학점</th>
 		    <th>수강취소</th>
 		</tr>
 <%
 			
-			mySQL = "select e.c_id, e.c_id_no, c.c_name, c.c_unit from course c, enroll e where e.s_id='"+ session_id +"' and e.c_id = c.c_id and e.c_id_no = c.c_id_no";
+			mySQL = "select e.c_id, e.c_id_no, c.c_name, c.c_unit, t.t_day, t.t_startTime_HH, t.t_startTime_MM, t.t_endTime_HH, t.t_endTime_MM, t.t_where from course c, enroll e, teach t where e.s_id='"+ session_id +"' and e.c_id = c.c_id and e.c_id_no = c.c_id_no and t.c_id = c.c_id and t.c_id_no = c.c_id_no";
 			try{
 				myResultSet = stmt.executeQuery(mySQL);
 
@@ -99,11 +102,25 @@
 						String c_id = myResultSet.getString("c_id");
 						int c_id_no = myResultSet.getInt("c_id_no");			
 						String c_name = myResultSet.getString("c_name");
-						int c_unit = myResultSet.getInt("c_unit");			
+						int c_unit = myResultSet.getInt("c_unit");
+						int t_day = myResultSet.getInt("t_day");
+						int t_startTime_HH = myResultSet.getInt("t_startTime_HH");
+						int t_startTime_MM = myResultSet.getInt("t_startTime_MM");
+						int t_endTime_HH = myResultSet.getInt("t_endTime_HH");
+						int t_endTime_MM = myResultSet.getInt("t_endTime_MM");
+						String t_where = myResultSet.getString("t_where");
 %>
 					<tr>
 					  <td align="center"><%= c_id %></td> <td align="center"><%= c_id_no %></td> 
-					  <td align="center"><%= c_name %></td><td align="center"><%= c_unit %></td>
+					  <td align="center"><%= c_name %></td>
+					  <% if(t_day == 13){ %>
+						  <td align="center">월, 수</td>
+					  <% }else{ %>
+						  <td align="center">화, 목</td>
+					  <% } %>
+					  <td align="center"><%= t_startTime_HH %> : <%= t_startTime_MM %> ~ <%= t_endTime_HH %> : <%= t_endTime_MM %></td>
+					  <td align="center"><%= t_where %></td>
+					  <td align="center"><%= c_unit %></td>
 					  <td align="center"><a href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">취소</a></td>
 					</tr>
 <%
