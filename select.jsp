@@ -14,31 +14,24 @@
 	<meta charset="UTF-8">
 	<title>수강신청 조회</title>
 	<link rel='stylesheet' href='dbDesign.css' />
+	<script>
+		function onSearch() {
+			var fr = document.getElementById("select_form");
+			var search_year = fr.search_year.value;
+			var search_semester = fr.search_semester.value;
+			location.href = "select.jsp?search_year=" + search_year + "&search_semester=" + search_semester;
+		}
+	</script>
 </head>
 <body>
-	<table width="75%" align="center" id="select_table">
 <% 
-	if (stu_mode) {
-%>
-		<tr>
-			<th>과목</th><th>분반</th><th>과목명</th><th>교수</th>
-			<th>시간</th><th>장소</th><th>학점</th>
-		</tr>
-<%
-	}
-	else {
-%>
-		<tr>
-			<th>과목</th><th>분반</th><th>과목명</th><th>시간</th>
-			<th>장소</th><th>수강 인원</th>
-		</tr>
-<%		
-	}
+	String search_year = request.getParameter("search_year");
+	String search_semester = request.getParameter("search_semester");
+ 	if (search_year == null)
+		search_year = "2017";
+	if (search_semester == null)
+		search_semester = "2";
 
-	Calendar system_date = Calendar.getInstance();
-	int current_year = system_date.get(Calendar.YEAR);
-	int current_month = system_date.get(Calendar.MONTH);
-	int next_semester = 0;
 	String course_id;
 	int course_id_no;
 	String course_name = "";
@@ -52,10 +45,10 @@
 	String course_place = "";
 	int max_student_num = 0;
 	int current_student_num = 0;
-	
+
 	int total_course = 0;
 	int total_unit = 0;
-	
+
 	Connection conn = null;		
 	PreparedStatement pstmt = null;
 	CallableStatement cstmt = null; 
@@ -63,22 +56,42 @@
 	ResultSet sub_rs = null;
 	String sql;
 	String sub_sql;
-	
-	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";
+
+	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
 	String user = "db01";                                       
 	String passwd = "ss2";
+
+%>
+	<form method="post" width="75%" align="center" id="select_form" action="select.jsp"> 
+		<br/>
+		<br/>
+		년도 <input type="text" name="search_year" value="<%=search_year %>" size="10"/>
+		학기 <input type="text" name="search_semester" value="<%=search_semester %>" size="10"/>
+		<input type="button" value="SEARCH" onclick="onSearch()"/>
+	</form>
+	
+	<table width="75%" align="center" id="select_table">
+<% 
+	if (stu_mode) {
+%>
+		<tr>
+			<th>과목번호</th><th>분반</th><th>과목명</th><th>담당교수</th>
+			<th>강의시간</th><th>강의장소</th><th>학점</th>
+		</tr>
+<%
+	}
+	else {
+%>
+		<tr>
+			<th>과목번호</th><th>분반</th><th>과목명</th><th>강의시간</th>
+			<th>강의장소</th><th>수강인원</th>
+		</tr>
+<%		
+	}
 	
 	try {
 		Class.forName("oracle.jdbc.driver.OracleDriver");            
 		conn = DriverManager.getConnection(dburl, user, passwd);
-
-		sql = "{call getNextSemester(?)}";
-		cstmt = conn.prepareCall(sql);
-		cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
-		cstmt.execute();
-		next_semester = cstmt.getInt(1);
-		if (current_month >= 11) 
-			current_year++;
 		
 		if (stu_mode) 
 			sql = "SELECT c_id, c_id_no FROM enroll WHERE s_id = ? and e_year = ? and e_semester = ?";
@@ -86,8 +99,8 @@
 			sql = "SELECT c_id, c_id_no FROM teach WHERE p_id = ? and t_year = ? and t_semester = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, session_id);
-		pstmt.setInt(2, current_year);
-		pstmt.setInt(3, next_semester);
+		pstmt.setInt(2, Integer.parseInt(search_year));
+		pstmt.setInt(3, Integer.parseInt(search_semester));
 		rs = pstmt.executeQuery();
 		while (rs.next()) {
 			course_id = rs.getString("c_id");
@@ -117,11 +130,12 @@
 				String str_st_m = null, str_et_m = null;
 				int st_m = sub_rs.getInt("t_startTime_MM");
 				str_st_m = st_m + "";
-				if(st_m == 0)  str_st_m = "00";
-
+				if (st_m == 0)  
+					str_st_m = "00";
 				int et_m = sub_rs.getInt("t_endTime_MM");
 				str_et_m = et_m + "";
-				if(et_m == 0)  str_et_m = "00";
+				if (et_m == 0)  
+					str_et_m = "00";
 				
 				course_start_time = "" + sub_rs.getInt("t_startTime_HH");
 				course_start_time = course_start_time + " : " + str_st_m;
@@ -191,6 +205,7 @@
 	<br/>
 	<br/>
 	<div width="75%" align="center">
+		<p><%=search_year %>년 <%=search_semester %>학기 수강신청 검색 결과 : </p>
 		<p>현재까지 <%=total_course %>과목, 총 <%=total_unit %>학점 수강신청 했습니다 </p>
 	</div>
 <%
