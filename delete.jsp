@@ -53,6 +53,13 @@
 						int t_endTime_MM = myResultSet.getInt("t_endTime_MM");
 						String t_where = myResultSet.getString("t_where");
 						int t_max = myResultSet.getInt("t_max");
+
+						String str_st_m = null, str_et_m = null;
+						str_st_m = t_startTime_MM + "";
+						if(t_startTime_MM == 0) str_st_m = "00";
+						str_et_m = t_endTime_MM + "";
+						if(t_endTime_MM == 0) str_et_m = "00";
+
 %>
 					<tr>
 					  <td align="center"><%= c_id %></td>
@@ -63,7 +70,7 @@
 					  <% }else{ %>
 						  <td align="center">화, 목</td>
 					  <% } %>
-					  <td align="center"><%= t_startTime_HH %> : <%= t_startTime_MM %> ~ <%= t_endTime_HH %> : <%= t_endTime_MM %></td>
+					  <td align="center"><%= t_startTime_HH %> : <%= str_st_m %> ~ <%= t_endTime_HH %> : <%= str_et_m %></td>
 					  <td align="center"><%= t_where %></td>
 					  <td align="center"><%= t_max %>명</td>
 					  <td align="center"><a href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">삭제</a></td>
@@ -109,6 +116,12 @@
 						int t_endTime_HH = myResultSet.getInt("t_endTime_HH");
 						int t_endTime_MM = myResultSet.getInt("t_endTime_MM");
 						String t_where = myResultSet.getString("t_where");
+
+						String str_st_m = null, str_et_m = null;
+						str_st_m = t_startTime_MM + "";
+						if(t_startTime_MM == 0) str_st_m = "00";
+						str_et_m = t_endTime_MM + "";
+						if(t_endTime_MM == 0) str_et_m = "00";
 %>
 					<tr>
 					  <td align="center"><%= c_id %></td> <td align="center"><%= c_id_no %></td> 
@@ -118,7 +131,7 @@
 					  <% }else{ %>
 						  <td align="center">화, 목</td>
 					  <% } %>
-					  <td align="center"><%= t_startTime_HH %> : <%= t_startTime_MM %> ~ <%= t_endTime_HH %> : <%= t_endTime_MM %></td>
+					  <td align="center"><%= t_startTime_HH %> : <%= str_st_m %> ~ <%= t_endTime_HH %> : <%= str_et_m %></td>
 					  <td align="center"><%= t_where %></td>
 					  <td align="center"><%= c_unit %></td>
 					  <td align="center"><a href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">취소</a></td>
