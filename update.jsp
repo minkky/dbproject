@@ -21,8 +21,8 @@
 	Connection myConn = null;
 
 	//minji 
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	//String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
 	String user = "db01";
 	String passwd = "ss2";
 
@@ -77,11 +77,18 @@
 			<form action="update_verify.jsp?id=<%=session_id%>&mode=<%=stu_mode%>" method="post">
 			<table align="center" id="update_table">
 			<tr>
-			  <td id="update_td">ID</td>
+			  <td id="update_td">아이디</td>
 			  <td><input id="update_id_in" type="text" name="id" size="15" value=<%=session_id%> disabled></td>
+			</tr>
+			<tr>  
 			  <td id="update_td">비밀번호</td>
 			  <td><input id="update_pw_in" type="password" name="password" size="10" value=<%=userPwd%>></td>
 			</tr>
+			<tr>
+			  <td id="update_td">확인</td>
+			  <td><input id="update_pw_in" type="password" name="passwordConfirm" size="10" ></td>
+			</tr>
+			
 			<tr>
 <%
 			String up_name = "주소";
@@ -93,7 +100,7 @@
 			<tr>
 			  <td colspan="4" align="center">
 			  <input id="update_btn" type="submit" value="수정 완료">
-			  </td>
+			  <input id="update_btn" type="reset" value="초기화">
 			</tr>
 			</table>
 			</form>

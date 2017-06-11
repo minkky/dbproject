@@ -9,7 +9,7 @@
 	Class.forName(dbdriver);
 	Connection myConn = null;
 
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "db01";
 	String passwd = "ss2";
 	//String id = null, pw = null;
