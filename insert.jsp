@@ -74,18 +74,23 @@
 <%
 			Connection myConn = null;      Statement stmt = null;
 			ResultSet myResultSet = null;   String mySQL = "";
+			CallableStatement cstmt = null;
 			String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
 			String user="db01";     String passwd="ss2";
-		    String dbdriver = "oracle.jdbc.driver.OracleDriver";    
+		    String dbdriver = "oracle.jdbc.driver.OracleDriver";
 
 			try {
 				Class.forName(dbdriver);
 			    myConn =  DriverManager.getConnection (dburl, user, passwd);
-				stmt = myConn.createStatement();
+			    stmt = myConn.createStatement();
+			    
+			    cstmt = myConn.prepareCall("{? = call getStrDay(?)}");
+				cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);
+
 		    } catch(SQLException ex) {
 			     System.err.println("SQLException: " + ex.getMessage());
 		    }
-			mySQL = "select c.c_id, c.c_id_no, c.c_name, c.c_unit, t.t_year, t.t_semester, t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm, p.p_name from course c, teach t, professor p where p.p_id=t.p_id AND c.c_id = t.c_id AND c.c_id_no=t.c_id_no AND c.c_id not in (select c_id from enroll where s_id='" + session_id + "') order by c.c_id, c.c_id_no";
+			mySQL = "select c.c_id, c.c_id_no, c.c_name, c.c_unit, t.t_year, t.t_semester, t_day, t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm, p.p_name from course c, teach t, professor p where p.p_id=t.p_id AND c.c_id = t.c_id AND c.c_id_no=t.c_id_no AND c.c_id not in (select c_id from enroll where s_id='" + session_id + "') order by c.c_id, c.c_id_no";
 			try{
 				myResultSet = stmt.executeQuery(mySQL);
 
@@ -104,6 +109,12 @@
 						t_st_mm = t_st_m + ""; t_et_mm = t_et_m + ""; 
 						if(t_st_m == 0) t_st_mm = "00";
 						if(t_et_m == 0) t_et_mm = "00";
+
+						int int_c_day = myResultSet.getInt("t_day"); 
+						cstmt.setInt(2, int_c_day);
+						cstmt.execute();
+						String str_c_day = cstmt.getString(1);
+
 %>
 					<tr>
 					  <td align="center"><%= c_id %></td> 
@@ -111,7 +122,7 @@
 					  <td align="center"><%= t_year %>-<%=t_semester%></td> 
 					  <td align="center"><%= c_name %></td>
 					  <td align="center"><%= c_unit %></td>
-					  <td align="center"><%= t_st_h %>:<%= t_st_mm %>-<%= t_et_h %>:<%= t_et_mm %></td>
+					  <td align="center"><%=str_c_day%> <%= t_st_h %>:<%= t_st_mm %>-<%= t_et_h %>:<%= t_et_mm %></td>
 					  <td align="center"><%= p_name %></td>
 					  <td align="center"><a href="insert_verify.jsp?mode=<%=stu_mode%>&c_name='<%=c_name%>'&c_id=<%= c_id %>&c_id_no=<%= c_id_no %>" id="in_b">신청</a></td>
 					</tr>
