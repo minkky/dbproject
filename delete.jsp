@@ -16,7 +16,7 @@
 	CallableStatement cstmt = null;
 	String mySQL = "";
 	ResultSet myResultSet = null;
-	String dburl  = "jdbc:oracle:thin:@localhost:1521:xe";
+	String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String user="db01";     String passwd="ss2";
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	String str_course_day = "";

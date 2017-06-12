@@ -15,7 +15,7 @@
 	
 	//minji 
 	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";	
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";	
 	String user = "db01";
 	String passwd = "ss2";
 	
