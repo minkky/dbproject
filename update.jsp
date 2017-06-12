@@ -78,13 +78,11 @@
 			<table align="center" id="update_table">
 			<tr>
 			  <td id="update_td">아이디</td>
-			  <td><input id="update_id_in" type="text" name="id" size="15" value=<%=session_id%> disabled></td>
+			  <td colspan="3"><input id="update_id_in" type="text" name="id" size="50" style="text-align: center;" value="<%=session_id%>" disabled></td>
 			</tr>
 			<tr>  
 			  <td id="update_td">비밀번호</td>
 			  <td><input id="update_pw_in" type="password" name="password" size="10" value=<%=userPwd%>></td>
-			</tr>
-			<tr>
 			  <td id="update_td">확인</td>
 			  <td><input id="update_pw_in" type="password" name="passwordConfirm" size="10" ></td>
 			</tr>

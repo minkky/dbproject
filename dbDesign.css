@@ -142,14 +142,12 @@ body{
 #in_b, #in_b:visited {
 	width: 80pt;
 	font-size: 17pt;
-	color: black;
-	text-decoration: none;
-	
+	color: blue;	
 }
 
 #update_id_in, #update_pw_in{
 	height : 25pt;
-	width : 300px;
+	width : 100%;
 	font-size: 20pt;
 	padding-left: 8px;
 	font-family: ppi;

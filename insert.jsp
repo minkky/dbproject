@@ -4,6 +4,13 @@
 	<head>
 		<title>수강신청 입력</title>
 		<link rel='stylesheet' href='./dbDesign.css' />
+		<style type="text/css">
+		#in_b, #in_b:visited {
+			width: 80pt;
+			font-size: 17pt;
+			color: blue;	
+		}
+	</style>
 	</head>
 <body>
 <%@ include file="top.jsp" %>

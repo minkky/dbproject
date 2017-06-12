@@ -5,6 +5,13 @@
 		<title>수강신청 취소</title>
 		<link rel='stylesheet' href='./dbDesign.css' />
 	</head>
+	<style type="text/css">
+		#in_b, #in_b:visited {
+			width: 80pt;
+			font-size: 17pt;
+			color: blue;	
+		}
+	</style>
 <body>
 <%@ include file="top.jsp" %>
 <%   
@@ -80,7 +87,7 @@
 					  <td align="center"><%=str_course_day %> <%= t_startTime_HH %> : <%= str_st_m %> ~ <%= t_endTime_HH %> : <%= str_et_m %></td>
 					  <td align="center"><%= t_where %></td>
 					  <td align="center"><%= t_max %>명</td>
-					  <td align="center"><a href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">삭제</a></td>
+					  <td align="center"><a id="in_b" href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">삭제</a></td>
 					</tr>
 <%
 					}
@@ -143,7 +150,7 @@
 					  <td align="center"><%=str_course_day %> <%= t_startTime_HH %> : <%= str_st_m %> ~ <%= t_endTime_HH %> : <%= str_et_m %></td>
 					  <td align="center"><%= t_where %></td>
 					  <td align="center"><%= c_unit %></td>
-					  <td align="center"><a href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">취소</a></td>
+					  <td align="center"><a id="in_b" href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">취소</a></td>
 					</tr>
 <%
 					}
