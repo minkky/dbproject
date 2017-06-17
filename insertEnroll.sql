@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE InsertEnroll(sStudentId IN VARCHAR2, 
+﻿CREATE OR REPLACE PROCEDURE InsertEnroll(sStudentId IN VARCHAR2, 
   sCourseId IN VARCHAR2, 
   nCourseIdNo IN NUMBER,
   result OUT VARCHAR2)
@@ -104,13 +104,13 @@ EXCEPTION
   WHEN too_many_sumCourseUnit THEN
 	result := '최대학점을 초과하였습니다';
   WHEN too_many_courses THEN
-	result := '이미 등록된 과목을 신청하였습니다';
+    result := '이미 등록된 과목을 신청하였습니다';
   WHEN too_many_students THEN
-	result := '수강신청 인원이 초과되어 등록이 불가능합니다';
+    result := '수강신청 인원이 초과되어 등록이 불가능합니다';
   WHEN duplicate_time THEN
-	result := '이미 등록된 과목 중 중복되는 시간이 존재합니다';
+    result := '이미 등록된 과목 중 중복되는 시간이 존재합니다';
   WHEN OTHERS THEN
-        ROLLBACK;
-        result := SQLCODE;
+    ROLLBACK;
+    result := SQLCODE;
 END;
 /
