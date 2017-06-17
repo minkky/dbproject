@@ -165,7 +165,7 @@
 	    CallableStatement cstmt = myConn.prepareCall("{call InsertEnroll(?,?,?,?)}");	
 		cstmt.setString(1, s_id);
 		cstmt.setString(2, c_id);
-		cstmt.setInt(3,c_id_no);
+		cstmt.setInt(3, c_id_no);
 		cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);	
 		
 		try {
