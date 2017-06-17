@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE PROCEDURE InsertEnroll(sStudentId IN VARCHAR2, 
+CREATE OR REPLACE PROCEDURE InsertEnroll(sStudentId IN VARCHAR2, 
   sCourseId IN VARCHAR2, 
   nCourseIdNo IN NUMBER,
   result OUT VARCHAR2)
@@ -75,12 +75,12 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분
   INTO nCnt
   FROM
   (
-	  SELECT t_startTime_hh, t_startTime_mm, t_endTime_hh, t_endTime_mm
+	  SELECT t_day, t_startTime_hh, t_startTime_mm, t_endTime_hh, t_endTime_mm
 	  FROM teach
 	  WHERE t_year=nYear and t_semester = nSemester and
 	        c_id = sCourseId and c_id_no = nCourseIdNo
 	  INTERSECT
-	  SELECT t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm
+	  SELECT t.t_day, t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm
 	  FROM teach t, enroll e
 	  WHERE e.s_id=sStudentId and e.e_year=nYear and e.e_semester = nSemester and
 		t.t_year=nYear and t.t_semester = nSemester and

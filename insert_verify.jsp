@@ -9,6 +9,8 @@
 
 	String mode = request.getParameter("mode");
 	String id = request.getParameter("id");
+	int to_day = 0;
+	
 	if(mode.equals("false")){
 		
 		//request.setCharacterEncoding("UTF-8");
@@ -23,7 +25,6 @@
 
 		String[] c_day = request.getParameterValues("lec_day");
 		String day = null;
-		int to_day = 0;
 		
 		if(c_day == null || c_day.length > 2){
 		%>
@@ -58,7 +59,7 @@
 		eh = Integer.parseInt(request.getParameter("lec_et_hh")); em = Integer.parseInt(request.getParameter("lec_et_mm"));
 
 		Connection myConn = null;    String	result = null;	
-		String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
 		String user="db01";   String passwd="ss2";
 		String dbdriver = "oracle.jdbc.driver.OracleDriver";    
 		Statement stmt = null, stmt1 = null; ResultSet rs = null, rs1 = null;
@@ -150,7 +151,7 @@
 		int c_id_no = Integer.parseInt(request.getParameter("c_id_no"));
 
 		Connection myConn = null;    String	result = null;	
-		String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
 		String user="db01";   String passwd="ss2";
 		String dbdriver = "oracle.jdbc.driver.OracleDriver";    
 
@@ -170,12 +171,12 @@
 		try {
 			cstmt.execute();
 			result = cstmt.getString(4);
-%>
-	<script>	
-		alert("<%= result %>");
-		location.href="insert.jsp";
-	</script>
-<%		
+		%>
+			<script>	
+				alert("<%=result%>");
+				location.href="insert.jsp";
+			</script>
+		<%		
 		} catch(SQLException ex) {		
 			 System.err.println("SQLException: " + ex.getMessage());
 		}
