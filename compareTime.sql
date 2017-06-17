@@ -34,13 +34,13 @@ BEGIN
 		IF (first_end_hour > second_start_hour) THEN
 			IF (first_start_hour < second_end_hour) THEN
 				overlap := 1;
-			ELSIF (first_start_hour = second_end_hour AND first_start_minute < second_end_minute) THEN
+			ELSIF (first_start_hour = second_end_hour AND first_start_minute <= second_end_minute) THEN
 				overlap := 1;
 			END IF;
 		ELSIF (first_end_hour = second_start_hour AND first_end_minute > second_start_minute) THEN
 			IF (first_start_hour < second_end_hour) THEN
 				overlap := 1;
-			ELSIF (first_start_hour = second_end_hour AND first_start_minute < second_end_minute) THEN
+			ELSIF (first_start_hour = second_end_hour AND first_start_minute <= second_end_minute) THEN
 				overlap := 1;
 			END IF;
 		END IF;	
