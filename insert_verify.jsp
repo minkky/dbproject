@@ -148,7 +148,7 @@
 	            	pstmt.close();
 	            	pstmt1.close();
 	            	cstmt.close();
-	            	cstmt1.close();
+	            	
 	            }catch(SQLException ex) { 
 	            	out.print("error");
 	            }
