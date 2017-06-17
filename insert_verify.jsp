@@ -108,7 +108,7 @@
   	    		pstmt1 = myConn.prepareStatement(sql);
   	    		pstmt1.setString(1, id);		pstmt1.setString(2, c_id);
   	    		pstmt1.setInt(3, c_id_no+1);	pstmt1.setInt(4, 2017);
-  	    		pstmt1.setInt(5, 1); 			pstmt1.setInt(6, to_day);
+  	    		pstmt1.setInt(5, 2); 			pstmt1.setInt(6, to_day);
   	    		pstmt1.setInt(7, sh); 			pstmt1.setInt(8, sm);
   	    		pstmt1.setInt(9, eh);			pstmt1.setInt(10,em);
   	    		pstmt1.setString(11, c_loc);	pstmt1.setInt(12, max);
