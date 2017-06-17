@@ -21,12 +21,12 @@ BEGIN
 	SELECT t_day, t_startTime_HH, t_startTime_MM, t_endTime_HH, t_endTime_MM 
 	INTO first_course_day, first_start_hour, first_start_minute, first_end_hour, first_end_minute
 	FROM teach
-	WHERE first_course_id = c_id and first_course_id_no = c_id_no;
+	WHERE c_id = first_course_id and c_id_no = first_course_id_no;
 
 	SELECT t_day, t_startTime_HH, t_startTime_MM, t_endTime_HH, t_endTime_MM 
 	INTO second_course_day, second_start_hour, second_start_minute, second_end_hour, second_end_minute
 	FROM teach
-	WHERE second_course_id = c_id and second_course_id_no = c_id_no;
+	WHERE c_id = second_course_id and c_id_no = second_course_id_no;
 
 	overlap := 0;
 	
@@ -42,6 +42,7 @@ BEGIN
 		END IF;
 	END IF;
 	COMMIT;
+	
 RETURN overlap;
 END;
 /

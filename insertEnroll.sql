@@ -17,7 +17,8 @@ IS
   overlap NUMBER;
   CURSOR duplicate_time_cursor IS
     SELECT *
-    FROM teach;
+    FROM teach
+    WHERE c_id = sCourseId and c_id_no = nCourseIdNo;
 BEGIN
   result := '';
 
