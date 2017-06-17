@@ -97,7 +97,7 @@
 		    } catch(SQLException ex) {
 			     System.err.println("SQLException: " + ex.getMessage());
 		    }
-			mySQL = "select c.c_id, c.c_id_no, c.c_name, c.c_unit, t.t_year, t.t_semester, t_day, t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm, p.p_name from course c, teach t, professor p where p.p_id=t.p_id AND c.c_id = t.c_id AND c.c_id_no=t.c_id_no AND (c.c_id, c.c_id_no) not in (select c_id, c_id_no from enroll where s_id='" + session_id + "') order by c.c_id, c.c_id_no";
+			mySQL = "SELECT c.c_id, c.c_id_no, c.c_name, c.c_unit, t.t_year, t.t_semester, t_day, t.t_startTime_hh, t.t_startTime_mm, t.t_endTime_hh, t.t_endTime_mm, p.p_name FROM course c, teach t, professor p WHERE p.p_id=t.p_id AND c.c_id = t.c_id AND c.c_id_no=t.c_id_no AND (c.c_id, c.c_id_no) not in (select c_id, c_id_no from enroll where s_id='" + session_id + "') order by c.c_id, c.c_id_no";
 			try{
 				myResultSet = stmt.executeQuery(mySQL);
 

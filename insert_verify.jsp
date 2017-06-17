@@ -63,6 +63,8 @@
 		String user="db01";   String passwd="ss2";
 		String dbdriver = "oracle.jdbc.driver.OracleDriver";    
 		Statement stmt = null, stmt1 = null; ResultSet rs = null, rs1 = null;
+		CallableStatement cstmt = null, cstmt1 = null;
+
 		PreparedStatement pstmt = null, pstmt1 = null;
 		String sql = null;
 		Boolean check = false;
@@ -104,17 +106,30 @@
   	    		pstmt.setString(3, c_name); 
   	    		pstmt.setInt(4, unit);
 
+  	    		int nSemester = 0, nYear;
+		  	    cstmt = myConn.prepareCall("{? = call Date2EnrollSemester(SYSDATE)}");
+		  	    cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
+		  	    cstmt.execute();
+		  	    nSemester = cstmt.getInt(1);
+
+		  	    cstmt = myConn.prepareCall("{? = call Date2EnrollYear(SYSDATE)}");
+		  	    cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
+		  	    cstmt.execute();
+		  	    nYear = cstmt.getInt(1);
+
+
   	    		sql = "insert into teach values(?,?,?,?,?,?,?,?,?,?,?,?)";
   	    		pstmt1 = myConn.prepareStatement(sql);
   	    		pstmt1.setString(1, id);		pstmt1.setString(2, c_id);
-  	    		pstmt1.setInt(3, c_id_no+1);	pstmt1.setInt(4, 2017);
-  	    		pstmt1.setInt(5, 2); 			pstmt1.setInt(6, to_day);
+  	    		pstmt1.setInt(3, c_id_no+1);	pstmt1.setInt(4, nYear);
+  	    		pstmt1.setInt(5, nSemester);	pstmt1.setInt(6, to_day);
   	    		pstmt1.setInt(7, sh); 			pstmt1.setInt(8, sm);
   	    		pstmt1.setInt(9, eh);			pstmt1.setInt(10,em);
   	    		pstmt1.setString(11, c_loc);	pstmt1.setInt(12, max);
   	    		
-  	    		out.print(id + " " + c_id + " " + (c_id_no+1) + " ");
-  	    		out.print("sdfa " + sh + " " +sm + " " +eh + " " +em + " "+c_loc + " " + " " +max);
+
+				out.print("semester : " + nSemester + " nyear : " + nYear);
+
   	    		pstmt.executeUpdate();
   	    		pstmt1.executeUpdate();
 %>
@@ -132,6 +147,8 @@
 	            try { 
 	            	pstmt.close();
 	            	pstmt1.close();
+	            	cstmt.close();
+	            	cstmt1.close();
 	            }catch(SQLException ex) { 
 	            	out.print("error");
 	            }
@@ -165,7 +182,7 @@
 	    CallableStatement cstmt = myConn.prepareCall("{call InsertEnroll(?,?,?,?)}");	
 		cstmt.setString(1, s_id);
 		cstmt.setString(2, c_id);
-		cstmt.setInt(3, c_id_no);
+		cstmt.setInt(3,c_id_no);
 		cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);	
 		
 		try {
