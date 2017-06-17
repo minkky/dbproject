@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE InsertEnroll (
+﻿CREATE OR REPLACE PROCEDURE InsertEnroll (
   sStudentId IN VARCHAR2, 
   sCourseId IN VARCHAR2, 
   nCourseIdNo IN NUMBER,
@@ -17,8 +17,8 @@ IS
   overlap NUMBER;
   CURSOR duplicate_time_cursor IS
     SELECT *
-    FROM teach
-    WHERE c_id = sCourseId and c_id_no = nCourseIdNo;
+    FROM enroll
+    WHERE s_id = sStudentId;
 BEGIN
   result := '';
 
@@ -81,8 +81,8 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분
 
   /* 에러 처리 4 : 신청한 과목들 시간 중복 여부 */
   overlap := 0;
-  FOR course_list IN duplicate_time_cursor LOOP
-    overlap := compareTime(sCourseId, nCourseIdNo, course_list.c_id, course_list.c_id_no);
+  FOR enroll_list IN duplicate_time_cursor LOOP
+    overlap := compareTime(sCourseId, nCourseIdNo, enroll_list.c_id, enroll_list.c_id_no);
   END LOOP;
 
   IF (overlap > 0)
