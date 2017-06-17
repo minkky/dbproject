@@ -101,8 +101,8 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분
   result := '수강신청 등록이 완료되었습니다.';
 
 EXCEPTION
-  WHEN too_many_sumCourseUnit THEN    
-	result := '최대학점을 초과하였습니다';	
+  WHEN too_many_sumCourseUnit THEN
+	result := '최대학점을 초과하였습니다';
   WHEN too_many_courses THEN
 	result := '이미 등록된 과목을 신청하였습니다';
   WHEN too_many_students THEN
