@@ -24,7 +24,7 @@
 	String mySQL = "";
 	String semesterSQL = "";
 	ResultSet myResultSet = null;
-	String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user="db01";     String passwd="ss2";
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	String str_course_day = "";
