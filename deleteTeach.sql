@@ -1,4 +1,4 @@
-﻿CREATE OR Replace PROCEDURE DeleteTeach (pProfessorId IN VARCHAR2, 
+CREATE OR Replace PROCEDURE DeleteTeach (pProfessorId IN VARCHAR2, 
 		sCourseId IN VARCHAR2, 
 		nCourseIdNo IN NUMBER,
 		result OUT VARCHAR2)

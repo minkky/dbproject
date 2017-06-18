@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE PROCEDURE InsertEnroll (
+CREATE OR REPLACE PROCEDURE InsertEnroll (
   sStudentId IN VARCHAR2, 
   sCourseId IN VARCHAR2, 
   nCourseIdNo IN NUMBER,

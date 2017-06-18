@@ -96,33 +96,33 @@
 	  	    		c_id_no = 0; c_id = "C" + n_id;
 	  	    		out.print(c_id + " " + c_id_no);
 	  	    	}
+	  	    	
+	  	    	
+	  	    	CallableStatement cstmt = myConn.prepareCall("{call InsertLecture(?,?,?,?,?,?,?,?,?,?,?,?,?)}");	
+	  			cstmt.setString(1, c_name);
+	  			cstmt.setString(2, c_unit);
+	  	    	
+	  	    	cstmt.setString(3, id);
+	  			cstmt.setString(4, c_id);
+				cstmt.setInt(5,c_id_no+1);
 
-  	    		sql = "insert into course values(?,?,?,?)";
-  	    		pstmt = myConn.prepareStatement(sql);
-  	    		pstmt.setString(1, c_id); 
-  	    		pstmt.setInt(2, c_id_no+1);
-  	    		pstmt.setString(3, c_name); 
-  	    		pstmt.setInt(4, unit);
-
-  	    		sql = "insert into teach values(?,?,?,?,?,?,?,?,?,?,?,?)";
-  	    		pstmt1 = myConn.prepareStatement(sql);
-  	    		pstmt1.setString(1, id);		pstmt1.setString(2, c_id);
-  	    		pstmt1.setInt(3, c_id_no+1);	pstmt1.setInt(4, 2017);
-  	    		pstmt1.setInt(5, 1); 			pstmt1.setInt(6, to_day);
-  	    		pstmt1.setInt(7, sh); 			pstmt1.setInt(8, sm);
-  	    		pstmt1.setInt(9, eh);			pstmt1.setInt(10,em);
-  	    		pstmt1.setString(11, c_loc);	pstmt1.setInt(12, max);
-  	    		
-  	    		out.print(id + " " + c_id + " " + (c_id_no+1) + " ");
-  	    		out.print("sdfa " + sh + " " +sm + " " +eh + " " +em + " "+c_loc + " " + " " +max);
-  	    		pstmt.executeUpdate();
-  	    		pstmt1.executeUpdate();
-%>
-				<script>	
-					alert("추가되었습니다.");
-					location.href="insert.jsp";
-				</script>
-<%
+				cstmt.setInt(6, to_day);
+				cstmt.setInt(7, sh); cstmt.setInt(8, sm);
+				cstmt.setInt(9, eh); cstmt.setInt(10, em);
+				cstmt.setString(11, c_loc); cstmt.setInt(12, max);
+				
+				cstmt.registerOutParameter(13, java.sql.Types.VARCHAR);
+	  			cstmt.execute();
+	  			
+	  			result = cstmt.getString(13);
+	  			%>
+	  			<script>	
+	  				alert("<%=result%>");
+	  				location.href="insert.jsp";
+	  			</script>
+	  			<%		
+	  	    	
+	  	    	
 	  	    }
 
 		} catch(SQLException ex) {
