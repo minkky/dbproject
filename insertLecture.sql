@@ -64,12 +64,12 @@ BEGIN
   	END IF;
 
   	/* teach와 course 테이블에 수업 추가 */
-  	INSERT INTO TEACH
-  	VALUES(sProfessorId, sCourseId, nCourseIdNo, nYear, nSemester, nDay, nStart_h, nStart_m, nEnd_h, nEnd_m, nLOC, nMax);
-
 	INSERT INTO course
 	VALUES(sCourseId, nCourseIdNo, sCourseName, nCourseUnit);
-  	
+ 
+   	INSERT INTO TEACH
+  	VALUES(sProfessorId, sCourseId, nCourseIdNo, nYear, nSemester, nDay, nStart_h, nStart_m, nEnd_h, nEnd_m, nLOC, nMax);
+ 	
   	COMMIT;
   	result := '수업을 추가하였습니다.';
 
@@ -80,6 +80,6 @@ EXCEPTION
 		result := '해당 강의실에 이미 수업이 있습니다.';
 	WHEN OTHERS THEN
     	ROLLBACK;
-    	result := SQLCODE;
+    	result := '잠시후에 다시 시도해주세요';
 END;
 /

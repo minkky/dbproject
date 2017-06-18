@@ -56,8 +56,7 @@
 				</td> 
 				<td align="center"><input type="text" name="lec_loc" id="in"></td>
 				<td align="center"><input type="text" name="lec_max" style="width:65px;" id="in"></td>
-				<td align="center"><input type="submit" value="추가" id="in_b" style="font-family: ppi;
-			"></td>
+				<td align="center"><input type="submit" value="추가" id="in_b" style="font-family: ppi;" value="1"></td>
 			</form>
 			</tr>
 			</table>
@@ -82,7 +81,7 @@
 			Connection myConn = null;      Statement stmt = null;
 			ResultSet myResultSet = null;   String mySQL = "";
 			CallableStatement cstmt = null;
-			String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
+			String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
 			String user="db01";     String passwd="ss2";
 		    String dbdriver = "oracle.jdbc.driver.OracleDriver";
 

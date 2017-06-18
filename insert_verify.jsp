@@ -15,14 +15,67 @@
 		
 		//request.setCharacterEncoding("UTF-8");
 		//response.setContentType("text/html;charset=UTF-8");
-	
+		
 		String c_name = request.getParameter("lec_name");
+		if(c_name == null || c_name.equals("")){
+		%>
+			<script>	
+				alert("과목명을 확인해주세요.");
+				location.href="insert.jsp";
+			</script>
+		<%
+		}
 		String c_unit = request.getParameter("lec_unit");
-		int unit = Integer.parseInt(c_unit);
-		String c_loc = request.getParameter("lec_loc");
-		String c_max = request.getParameter("lec_max");
-		int max = Integer.parseInt(c_max);
+		if(c_unit == null || c_unit.equals("")){
+		%>
+			<script>	
+				alert("이수학점을 확인해주세요.");
+				location.href="insert.jsp";
+			</script>
+		<%
+		}
+		
+		int unit = 0;
+		if(!c_unit.equals(""))
+			unit = Integer.parseInt(c_unit);
+		else 
+			unit = 0;
 
+		if(unit == 0){
+		%>
+			<script>	
+				alert("이수학점을 확인해주세요.");
+				location.href="insert.jsp";
+			</script>
+		<%
+		}
+		
+		String c_loc = request.getParameter("lec_loc");
+		if(c_loc == null || c_loc.equals("")){
+		%>
+			<script>	
+				alert("강의실을 확인해주세요.");
+				location.href="insert.jsp";
+			</script>
+		<%
+		}
+		
+
+		String c_max = request.getParameter("lec_max");
+		int max = 0;
+		if(!c_max.equals(""))
+			max = Integer.parseInt(c_max);
+		else 
+			max = 0;
+
+		if(max == 0){
+		%>
+			<script>	
+				alert("강의 인원을 확인해주세요.");
+				location.href="insert.jsp";
+			</script>
+		<%
+		}
 		String[] c_day = request.getParameterValues("lec_day");
 		String day = null;
 		
@@ -59,7 +112,7 @@
 		eh = Integer.parseInt(request.getParameter("lec_et_hh")); em = Integer.parseInt(request.getParameter("lec_et_mm"));
 
 		Connection myConn = null;    String	result = null;	
-		String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
+		String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String user="db01";   String passwd="ss2";
 		String dbdriver = "oracle.jdbc.driver.OracleDriver";    
 		Statement stmt = null, stmt1 = null; ResultSet rs = null, rs1 = null;
@@ -153,7 +206,7 @@
 		int c_id_no = Integer.parseInt(request.getParameter("c_id_no"));
 
 		Connection myConn = null;    String	result = null;	
-		String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
+		String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String user="db01";   String passwd="ss2";
 		String dbdriver = "oracle.jdbc.driver.OracleDriver";    
 
