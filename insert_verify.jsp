@@ -117,7 +117,7 @@
          sh = Integer.parseInt(request.getParameter("lec_st_hh")); sm = Integer.parseInt(request.getParameter("lec_st_mm"));
          eh = Integer.parseInt(request.getParameter("lec_et_hh")); em = Integer.parseInt(request.getParameter("lec_et_mm"));
          Connection myConn = null;    String   result = null;   
-         String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
+         String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
          String user="db01";   String passwd="ss2";
          String dbdriver = "oracle.jdbc.driver.OracleDriver";    
          Statement stmt = null, stmt1 = null; ResultSet rs = null, rs1 = null;
@@ -212,7 +212,7 @@
       int c_id_no = Integer.parseInt(request.getParameter("c_id_no"));
 
       Connection myConn = null;    String   result = null;   
-      String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
+      String dburl  = "jdbc:oracle:thin:@localhost:1521:orcl";
       String user="db01";   String passwd="ss2";
       String dbdriver = "oracle.jdbc.driver.OracleDriver";    
 

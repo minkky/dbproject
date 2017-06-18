@@ -83,13 +83,13 @@ DBMS_OUTPUT.put_line(sStudentId || '님이 과목번호 ' || sCourseId || ', 분
   overlap := 0;
   FOR enroll_list IN duplicate_time_cursor LOOP
     overlap := compareTime(sCourseId, nCourseIdNo, enroll_list.c_id, enroll_list.c_id_no);
-  END LOOP;
+  
+    IF (overlap > 0)
+    THEN
+       RAISE duplicate_time;
+    END IF;
+ END LOOP;
 
-  IF (overlap > 0)
-  THEN
-     RAISE duplicate_time;
-  END IF;
- 
 
   /* 수강 신청 등록 */
   INSERT INTO enroll(S_ID,C_ID,C_ID_NO,E_YEAR,E_SEMESTER)
