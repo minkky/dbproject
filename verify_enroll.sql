@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE PROCEDURE SelectTimeTable(sStudentId IN VARCHAR2,
+CREATE OR REPLACE PROCEDURE SelectTimeTable(sStudentId IN VARCHAR2,
 		nYear      IN NUMBER,
 		nSemester  IN NUMBER)					
 IS

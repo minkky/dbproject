@@ -36,8 +36,8 @@ IS
 BEGIN
 	result := '';
 	
-	DBMS_OUTPUT.put_line('#');
-	DBMS_OUTPUT.put_line(sProfessorId || '님이 과목번호 ' || sCourseId || ', 분반 ' || TO_CHAR(nCourseIdNo) || '의 수업 등록을 요청하였습니다.');
+--	DBMS_OUTPUT.put_line('#');
+--	DBMS_OUTPUT.put_line(sProfessorId || '님이 과목번호 ' || sCourseId || ', 분반 ' || TO_CHAR(nCourseIdNo) || '의 수업 등록을 요청하였습니다.');
 
 	/* 년도, 학기 알아내기 */
 	nYear := Date2EnrollYear(SYSDATE);
@@ -45,8 +45,8 @@ BEGIN
 
 	/* 에러처리 1 : 중복 시간 수업 있는 경우*/
 	check1 := 0;
-	FOR enroll_list IN duplicate_time_cursor LOOP
-    	check1 := compareTime4pro(nDay, nStart_h, nStart_m, nEnd_h, nEnd_m, enroll_list.c_id, enroll_list.c_id_no);
+	FOR time_list IN duplicate_time_cursor LOOP
+    	check1 := compareTime4pro(nDay, nStart_h, nStart_m, nEnd_h, nEnd_m, time_list.c_id, time_list.c_id_no);
   	END LOOP;
 
   	IF(check1 > 0) THEN
@@ -55,8 +55,8 @@ BEGIN
 
 	/* 에러처리 2 : 중복 시간 속 중복 장소*/
 	check2 := 0;
-	FOR enroll_list IN duplicate_loc_cursor LOOP
-    	check2 := compareTime4pro(nDay, nStart_h, nStart_m, nEnd_h, nEnd_m, enroll_list.c_id, enroll_list.c_id_no);
+	FOR loc_list IN duplicate_loc_cursor LOOP
+    	check2 := compareTime4pro(nDay, nStart_h, nStart_m, nEnd_h, nEnd_m, loc_list.c_id, loc_list.c_id_no);
   	END LOOP;
 
   	IF(check2 > 0) THEN
@@ -64,11 +64,13 @@ BEGIN
   	END IF;
 
   	/* teach와 course 테이블에 수업 추가 */
+  	
+	INSERT INTO course
+	VALUES(sCourseId, nCourseIdNo, sCourseName, nCourseUnit);
+  	
   	INSERT INTO TEACH
   	VALUES(sProfessorId, sCourseId, nCourseIdNo, nYear, nSemester, nDay, nStart_h, nStart_m, nEnd_h, nEnd_m, nLOC, nMax);
 
-	INSERT INTO course
-	VALUES(sCourseId, nCourseIdNo, sCourseName, nCourseUnit);
   	
   	COMMIT;
   	result := '수업을 추가하였습니다.';

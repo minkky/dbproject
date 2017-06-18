@@ -16,10 +16,11 @@ BEGIN
 	DELETE
 	FROM course
 	WHERE c_id = sCourseId and c_id_no = nCourseIdNo;
-
+	
 	DELETE
 	FROM enroll
 	WHERE c_id = sCourseId and c_id_no = nCourseIdNo;
+	
 
 	COMMIT;
 	result := '강의 삭제가 완료되었습니다.';
