@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id="login_title">
-	수강신청 로그인(부제)
+	수강신청 로그인
 </div>
 <table width="36%" align="center" id="login_table">
 <form method="post" action="login_verify.jsp" name="login_form">

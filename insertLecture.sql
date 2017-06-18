@@ -35,9 +35,6 @@ IS
 
 BEGIN
 	result := '';
-
-	INSERT INTO course
-	VALUES(sCourseId, nCourseIdNo, sCourseName, nCourseUnit);
 	
 	DBMS_OUTPUT.put_line('#');
 	DBMS_OUTPUT.put_line(sProfessorId || '님이 과목번호 ' || sCourseId || ', 분반 ' || TO_CHAR(nCourseIdNo) || '의 수업 등록을 요청하였습니다.');
@@ -66,10 +63,13 @@ BEGIN
   		RAISE duplicate_location;
   	END IF;
 
-  	/* 수업 추가 */
+  	/* teach와 course 테이블에 수업 추가 */
   	INSERT INTO TEACH
   	VALUES(sProfessorId, sCourseId, nCourseIdNo, nYear, nSemester, nDay, nStart_h, nStart_m, nEnd_h, nEnd_m, nLOC, nMax);
 
+	INSERT INTO course
+	VALUES(sCourseId, nCourseIdNo, sCourseName, nCourseUnit);
+  	
   	COMMIT;
   	result := '수업을 추가하였습니다.';
 

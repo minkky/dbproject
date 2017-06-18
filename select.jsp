@@ -31,7 +31,6 @@
 		search_year = "2017";
 	if (search_semester == null)
 		search_semester = "2";
-
 	String course_id;
 	int course_id_no;
 	String course_name = "";
@@ -45,10 +44,8 @@
 	String course_place = "";
 	int max_student_num = 0;
 	int current_student_num = 0;
-
 	int total_course = 0;
 	int total_unit = 0;
-
 	Connection conn = null;		
 	PreparedStatement pstmt = null;
 	CallableStatement cstmt = null; 
@@ -56,11 +53,9 @@
 	ResultSet sub_rs = null;
 	String sql;
 	String sub_sql;
-
 	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "db01";                                       
 	String passwd = "ss2";
-
 %>
 	<form method="post" width="75%" align="center" id="select_form" action="select.jsp"> 
 		<br/>
@@ -126,7 +121,6 @@
 			if (sub_rs.next()) {
 				professor_id = sub_rs.getString("p_id");
 				int_course_day = "" + sub_rs.getInt("t_day");
-
 				String str_st_m = null, str_et_m = null;
 				int st_m = sub_rs.getInt("t_startTime_MM");
 				str_st_m = st_m + "";

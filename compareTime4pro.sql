@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION compareTime2pro (
+CREATE OR REPLACE FUNCTION compareTime4pro (
 	nDay IN NUMBER,
 	nStart_h IN NUMBER,
 	nStart_m IN NUMBER,

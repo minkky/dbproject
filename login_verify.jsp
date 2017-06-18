@@ -8,16 +8,13 @@
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
 	Connection myConn = null;
-
 	String dburl = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "db01";
 	String passwd = "ss2";
 	//String id = null, pw = null;
-
 	Statement stmt = null;	Statement p_stmt = null;
 	String mySQL = null;	String p_mySQL = null;
 	ResultSet rs = null; 	ResultSet p_rs = null;
-
 	String userID = request.getParameter("userID");
 	String userPassword = request.getParameter("userPassword");
 %>
@@ -27,13 +24,10 @@
 	try{
 		myConn = DriverManager.getConnection(dburl, user, passwd);
 		stmt = myConn.createStatement(); p_stmt = myConn.createStatement();
-
 		mySQL = "select s_id, s_pwd, s_name from student where s_id='" + userID + "' and s_pwd='"+ userPassword +"'";
 		rs = stmt.executeQuery(mySQL);
-
 		p_mySQL = "select p_id, p_pwd, p_name from professor where p_id='" + userID + "' and p_pwd='"+ userPassword +"'";
 		p_rs = p_stmt.executeQuery(p_mySQL);
-
 	}catch(SQLException e){
 	    out.println(e);
 	    e.printStackTrace();

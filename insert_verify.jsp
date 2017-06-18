@@ -63,6 +63,8 @@
 		String user="db01";   String passwd="ss2";
 		String dbdriver = "oracle.jdbc.driver.OracleDriver";    
 		Statement stmt = null, stmt1 = null; ResultSet rs = null, rs1 = null;
+		CallableStatement cstmt = null, cstmt1 = null;
+
 		PreparedStatement pstmt = null, pstmt1 = null;
 		String sql = null;
 		Boolean check = false;
@@ -98,14 +100,13 @@
 	  	    	}
 	  	    	
 	  	    	
-	  	    	CallableStatement cstmt = myConn.prepareCall("{call InsertLecture(?,?,?,?,?,?,?,?,?,?,?,?,?)}");	
+	  	    	cstmt = myConn.prepareCall("{call InsertLecture(?,?,?,?,?,?,?,?,?,?,?,?,?)}");	
 	  			cstmt.setString(1, c_name);
 	  			cstmt.setString(2, c_unit);
 	  	    	
 	  	    	cstmt.setString(3, id);
 	  			cstmt.setString(4, c_id);
 				cstmt.setInt(5,c_id_no+1);
-
 				cstmt.setInt(6, to_day);
 				cstmt.setInt(7, sh); cstmt.setInt(8, sm);
 				cstmt.setInt(9, eh); cstmt.setInt(10, em);
@@ -121,8 +122,7 @@
 	  				location.href="insert.jsp";
 	  			</script>
 	  			<%		
-	  	    	
-	  	    	
+	  	    
 	  	    }
 
 		} catch(SQLException ex) {
@@ -132,6 +132,8 @@
 	            try { 
 	            	pstmt.close();
 	            	pstmt1.close();
+	            	cstmt.close();
+	            	
 	            }catch(SQLException ex) { 
 	            	out.print("error");
 	            }
@@ -165,7 +167,7 @@
 	    CallableStatement cstmt = myConn.prepareCall("{call InsertEnroll(?,?,?,?)}");	
 		cstmt.setString(1, s_id);
 		cstmt.setString(2, c_id);
-		cstmt.setInt(3, c_id_no);
+		cstmt.setInt(3,c_id_no);
 		cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);	
 		
 		try {

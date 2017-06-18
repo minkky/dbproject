@@ -22,12 +22,13 @@
 	Statement stmt = null;
 	CallableStatement cstmt = null;
 	String mySQL = "";
+	String semesterSQL = "";
 	ResultSet myResultSet = null;
 	String dburl  = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user="db01";     String passwd="ss2";
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	String str_course_day = "";
-
+	int presentSemester = 0;
 	try {
 		Class.forName(dbdriver);
         myConn =  DriverManager.getConnection (dburl, user, passwd);
@@ -50,10 +51,9 @@
 		    <th>강의 삭제</th>
 		</tr>
 <%	
-			mySQL = "select t.c_id, t.c_id_no, c.c_name, t.t_day, t.t_startTime_HH, t.t_startTime_MM, t.t_endTime_HH, t.t_endTime_MM, t.t_where, t.t_max from course c, teach t, professor p where p.p_id='"+ session_id +"' and t.p_id = p.p_id and c.c_id = t.c_id and t.c_id_no = c.c_id_no";
+			mySQL = "select t.c_id, t.c_id_no, c.c_name, t.t_day, t.t_startTime_HH, t.t_startTime_MM, t.t_endTime_HH, t.t_endTime_MM, t.t_where, t.t_max, t.t_semester from course c, teach t, professor p where p.p_id='"+ session_id +"' and t.p_id = p.p_id and c.c_id = t.c_id and t.c_id_no = c.c_id_no";
 			try{
 				myResultSet = stmt.executeQuery(mySQL);
-
 				if (myResultSet != null) {
 					while (myResultSet.next()) {	
 						String c_id = myResultSet.getString("c_id");
@@ -66,6 +66,7 @@
 						int t_endTime_MM = myResultSet.getInt("t_endTime_MM");
 						String t_where = myResultSet.getString("t_where");
 						int t_max = myResultSet.getInt("t_max");
+						int t_semester = myResultSet.getInt("t_semester");
 						
 						mySQL = "{? = call getStrDay(?)}";
 						cstmt = myConn.prepareCall(mySQL);
@@ -79,6 +80,14 @@
 						if(t_startTime_MM == 0) str_st_m = "00";
 						str_et_m = t_endTime_MM + "";
 						if(t_endTime_MM == 0) str_et_m = "00";
+						
+						semesterSQL = "{call getNextSemester(?)}";
+						cstmt = myConn.prepareCall(semesterSQL);
+						cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
+						cstmt.execute();
+						presentSemester = cstmt.getInt(1);
+						
+						if (t_semester == presentSemester){
 %>
 					<tr>
 					  <td align="center"><%= c_id %></td>
@@ -90,6 +99,7 @@
 					  <td align="center"><a id="in_b" href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">삭제</a></td>
 					</tr>
 <%
+						}
 					}
 				}
 			}catch(SQLException e){
@@ -114,14 +124,14 @@
 		</tr>
 <%
 			
-			mySQL = "select e.c_id, e.c_id_no, c.c_name, c.c_unit, t.t_day, t.t_startTime_HH, t.t_startTime_MM, t.t_endTime_HH, t.t_endTime_MM, t.t_where from course c, enroll e, teach t where e.s_id='"+ session_id +"' and e.c_id = c.c_id and e.c_id_no = c.c_id_no and t.c_id = c.c_id and t.c_id_no = c.c_id_no";
+			mySQL = "select e.c_id, e.c_id_no, e.e_semester, c.c_name, c.c_unit, t.t_day, t.t_startTime_HH, t.t_startTime_MM, t.t_endTime_HH, t.t_endTime_MM, t.t_where from course c, enroll e, teach t where e.s_id='"+ session_id +"' and e.c_id = c.c_id and e.c_id_no = c.c_id_no and t.c_id = c.c_id and t.c_id_no = c.c_id_no";
 			try{
 				myResultSet = stmt.executeQuery(mySQL);
-
 				if (myResultSet != null) {
 					while (myResultSet.next()) {	
 						String c_id = myResultSet.getString("c_id");
-						int c_id_no = myResultSet.getInt("c_id_no");			
+						int c_id_no = myResultSet.getInt("c_id_no");
+						int e_semester = myResultSet.getInt("e_semester");
 						String c_name = myResultSet.getString("c_name");
 						int c_unit = myResultSet.getInt("c_unit");
 						int t_day = myResultSet.getInt("t_day");
@@ -143,6 +153,14 @@
 						if(t_startTime_MM == 0) str_st_m = "00";
 						str_et_m = t_endTime_MM + "";
 						if(t_endTime_MM == 0) str_et_m = "00";
+						
+						semesterSQL = "{call getNextSemester(?)}";
+						cstmt = myConn.prepareCall(semesterSQL);
+						cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
+						cstmt.execute();
+						presentSemester = cstmt.getInt(1);
+						
+						if(e_semester == presentSemester){
 %>				
 					<tr>
 					  <td align="center"><%= c_id %></td> <td align="center"><%= c_id_no %></td> 
@@ -153,6 +171,7 @@
 					  <td align="center"><a id="in_b" href="delete_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">취소</a></td>
 					</tr>
 <%
+						}
 					}
 				}
 			}catch(SQLException e){
